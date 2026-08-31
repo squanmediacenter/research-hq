@@ -1,5 +1,5 @@
 [README.md](https://github.com/user-attachments/files/31664262/README.md)
-# research-hq# The Architect of Inquiry — Student Research Tools
+# The Architect of Inquiry — Student Research Tools
 
 Three self-contained, browser-based tools that guide students through research as detective work, built for the **Charles Raffetto Media Center** at Manasquan High School.
 
