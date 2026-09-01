@@ -9,6 +9,12 @@ Three self-contained, browser-based tools that guide students through research a
 
 The tools run entirely in the browser — no login, no server — and a student's saved work carries across all three.
 
+## Live tools
+
+- Investigator's Pledge — https://squanmediacenter.github.io/research-hq/Investigators-Pledge.html
+- Question Quest — https://squanmediacenter.github.io/research-hq/Question-Quest.html
+- Source Hunt — https://squanmediacenter.github.io/research-hq/Source-Hunt.html
+  
 ## License
 
 This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
