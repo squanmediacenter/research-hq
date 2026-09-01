@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research HQ — Charles Raffetto Media Center</title>
+
+<!-- ============================================================
+     Fallback landing page for the bare Pages URL.
+     The PRIMARY front door is the Finalsite "Research HQ" page;
+     this simply keeps squanmediacenter.github.io/research-hq/
+     from 404-ing and links straight to the three tools.
+     No redirect, no external dependency.
+     (To add a redirect to the Finalsite hub later, insert a
+      <meta http-equiv="refresh" content="2; url=HUB_URL"> here.)
+     ============================================================ -->
+
+<style>
+  :root{ --teal:#0B7C8C; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+        font-family:'Segoe UI',system-ui,-apple-system,sans-serif; color:#222; background:#f7f6f2; padding:24px; }
+  .card{ max-width:520px; width:100%; background:#fff; border:1px solid #e6e3db; border-radius:16px;
+         padding:28px 26px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+  h1{ margin:0 0 6px; font-size:22px; color:var(--teal); }
+  .sub{ margin:0 0 20px; color:#555; font-size:14.5px; line-height:1.6; }
+  a.tool{ display:flex; align-items:center; gap:14px; text-decoration:none;
+          border:1px solid #d6e7ea; border-radius:12px; padding:12px 14px; margin-bottom:10px; background:#f4fbfc; }
+  a.tool .badge svg{ display:block; width:44px; height:44px; }
+  a.tool .nm{ display:block; font-weight:600; font-size:16px; color:#0E7A8C; }
+  a.tool .d{ display:block; font-weight:400; font-size:13px; color:#666; margin-top:2px; }
+  .note{ margin-top:16px; font-size:12px; color:#888; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Research HQ</h1>
+    <p class="sub">The Media Center&rsquo;s research tools. Pick a case file to begin &mdash; each one opens here, and your work follows you across all three.</p>
+
+    <a class="tool" href="Investigators-Pledge.html">
+      <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="t1"><title id="t1">Case file 1</title><path d="M24 4 L40 9 V23 C40 34 33 41 24 45 C15 41 8 34 8 23 V9 Z" fill="#0B7C8C"/><path d="M258 0V606H240L146 384H12L155 700H386V0Z" transform="matrix(0.0229,0,0,-0.0229,19.451,33.000)" fill="#fff"/></svg></span>
+      <span class="txt"><span class="nm">Investigator&rsquo;s Pledge</span><span class="d">Take the oath and commit to the Rules of Evidence.</span></span>
+    </a>
+
+    <a class="tool" href="Question-Quest.html">
+      <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="t2"><title id="t2">Case file 2</title><line x1="31" y1="31" x2="43" y2="43" stroke="#0B7C8C" stroke-width="5.5" stroke-linecap="round"/><circle cx="20" cy="20" r="15.5" fill="#0B7C8C"/><path d="M42 0V84Q42 157 66.0 205.5Q90 254 135.5 285.5Q181 317 247 337L314 358Q351 370 376.0 387.5Q401 405 414.5 430.0Q428 455 428 487V491Q428 541 394.0 570.5Q360 600 301 600Q243 600 207.5 568.5Q172 537 172 478V460H44V476Q44 552 78.0 605.0Q112 658 170.5 686.0Q229 714 301 714Q373 714 431.0 686.5Q489 659 522.5 609.5Q556 560 556 493V483Q556 416 528.5 369.5Q501 323 454.0 293.5Q407 264 347 245L283 225Q240 212 216.0 196.5Q192 181 182.5 162.5Q173 144 173 118V114H550V0Z" transform="matrix(0.0210,0,0,-0.0210,13.718,27.500)" fill="#fff"/></svg></span>
+      <span class="txt"><span class="nm">Question Quest</span><span class="d">Sharpen a hunch into a question worth investigating.</span></span>
+    </a>
+
+    <a class="tool" href="Source-Hunt.html">
+      <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="t3"><title id="t3">Case file 3</title><rect x="8" y="5" width="24" height="30" rx="3" fill="#E1F5EE" stroke="#0B7C8C" stroke-width="2"/><line x1="13" y1="12" x2="27" y2="12" stroke="#0B7C8C" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="17" x2="27" y2="17" stroke="#0B7C8C" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="22" x2="23" y2="22" stroke="#0B7C8C" stroke-width="2" stroke-linecap="round"/><line x1="34" y1="35" x2="44" y2="45" stroke="#0B7C8C" stroke-width="5" stroke-linecap="round"/><circle cx="28" cy="30" r="13.5" fill="#0B7C8C"/><path d="M304 -14Q225 -14 164.0 14.0Q103 42 68.5 94.5Q34 147 34 219V237H162V223Q162 167 201.0 133.5Q240 100 304 100Q369 100 404.5 131.0Q440 162 440 209V219Q440 251 424.0 271.0Q408 291 381.0 300.5Q354 310 320 310H180V450L406 570V586H52V700H548V530L337 418V402H374Q421 402 465.5 383.0Q510 364 539.0 324.5Q568 285 568 222V210Q568 142 535.0 91.5Q502 41 442.5 13.5Q383 -14 304 -14Z" transform="matrix(0.0182,0,0,-0.0182,22.520,36.245)" fill="#fff"/></svg></span>
+      <span class="txt"><span class="nm">Source Hunt</span><span class="d">Track down credible sources &mdash; and legally get past the paywalls.</span></span>
+    </a>
+
+    <p class="note">Charles Raffetto Media Center &middot; Manasquan High School</p>
+  </div>
+</body>
+</html>
