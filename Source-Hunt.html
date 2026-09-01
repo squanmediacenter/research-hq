@@ -178,10 +178,6 @@
   .wb-hint{font-family:var(--body);font-size:12px;color:var(--ink-soft);text-transform:none;letter-spacing:0}
   .publib{font-size:12.5px;color:var(--ink-soft);background:var(--wash);border-radius:9px;padding:10px 13px;margin:14px 0 0;line-height:1.5}
   .steps{margin:8px 0 0;padding-left:22px;color:var(--ink);font-size:14px;line-height:1.55}
-  .sim-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#FFF7E6;border:1px dashed var(--warn);border-radius:10px;padding:8px 12px;margin:0 0 14px;font-size:12.5px;color:#7A5512}
-  .sim-tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--warn);color:#fff;border-radius:5px;padding:2px 7px}
-  .sim-toggle{display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:600;color:#7A5512}
-  .sim-note{color:var(--ink-soft)}
   .projbar{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px 18px 16px;margin:0 0 18px}
   .projbar-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 12px}
   .projbar-head .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0}
@@ -305,7 +301,7 @@
   .best-tag{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;letter-spacing:.03em;text-transform:uppercase;color:var(--signal);background:#E7F3F5;border:1px solid #BFE0E5;border-radius:6px;padding:3px 8px;margin:0 0 8px}
   @media print{
     body{background:#fff;padding:0}
-    .need-chips,.clearneed,.cbtns,.reqform,.reqnote,.form-msg,.actions,.reflect-add,#refInput,.c-del,.r-del,.terms,.gloss-pop,.topen,.a11y-bar,.listen,.sec-listen,.chips.track,.lens-subj,.formwrap,.guide2,.ill-caution,.done-note,.paywall-note,.sim-bar,.proj-actions,.proj-hint,.proj-archive,.qbtns,.icon-btn{display:none!important}
+    .need-chips,.clearneed,.cbtns,.reqform,.reqnote,.form-msg,.actions,.reflect-add,#refInput,.c-del,.r-del,.terms,.gloss-pop,.topen,.a11y-bar,.listen,.sec-listen,.chips.track,.lens-subj,.formwrap,.guide2,.ill-caution,.done-note,.paywall-note,.proj-actions,.proj-hint,.proj-archive,.qbtns,.icon-btn{display:none!important}
     .proj-tab:not(.active){display:none!important}
     .proj-tab.active{background:transparent!important;border:none!important;padding:2px 0!important}
     .proj-tab.active .pt-name{color:#000!important}
@@ -366,12 +362,6 @@
   <div class="terms" id="terms"><span class="tl">Key Terms</span><span class="wb-hint">tap a term for its meaning</span></div>
 
 
-  <!-- PREVIEW-ONLY: simulate Question Quest data so the sync can be tested before the live site -->
-  <div class="sim-bar" id="simBar">
-    <span class="sim-tag">Preview</span>
-    <label class="sim-toggle"><input type="checkbox" id="simQQ"> Simulate Question Quest data</label>
-    <span class="sim-note">lets you test Sync before both Labs are on the live site</span>
-  </div>
 
   <!-- identity -->
   <div class="idbar">
@@ -529,7 +519,7 @@
 </main>
 </div>
 
-<footer>
+<footer><div class="rql-fresh" style="margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.08);text-align:center"><button type="button" id="clearAllBtn" style="font:inherit;font-size:12.5px;font-weight:600;color:#8a1c1c;background:#fff;border:1px solid #d9b3b3;border-radius:8px;padding:7px 14px;cursor:pointer">Clear my work / Start fresh</button><span style="display:block;font-size:11px;color:#777;margin-top:5px">Erases your saved work on this device — handy on a shared computer.</span></div>
   Manasquan High School Media Center &middot; Contact Mrs. Edwards for research help
   (<a href="mailto:aedwards@manasquan.k12.nj.us">aedwards@manasquan.k12.nj.us</a>)
   <div class="colophon">“The Architect of Inquiry” Research Tools © 2026 Amy Edwards, MLIS, School Library Media Specialist, Charles Raffetto Media Center, Manasquan High School. Licensed under CC BY-SA 4.0 &middot; Designed, reviewed, and verified by Amy Edwards; built with AI assistance (Claude, Anthropic, 2026).</div>
@@ -678,7 +668,7 @@ var CONFIG = {
 };
 
 /* ===== shared project list (co-owned with Question Quest) + Source Hunt per-project data ===== */
-var QQ_KEY="rql_state_v2", SH_KEY="sourceHunt.v3", LEGACY_KEY="sourceHunt.v2", SIM_KEY="sourceHunt.simQQ";
+var QQ_KEY="rql_state_v2", SH_KEY="sourceHunt.v3", LEGACY_KEY="sourceHunt.v2";
 var shared={ projects:[], activeId:null, student:{name:""} };
 var shData={ activeId:null, byProject:{} };
 var activeId=null;
@@ -791,25 +781,6 @@ function syncFromQQ(){
   else { shSyncMsg("No question saved in Question Quest for this project yet."); }
   save(); renderLens(); renderQuestion();
 }
-function simActive(){ try{ return localStorage.getItem(SIM_KEY)==="1"; }catch(e){ return false; } }
-function toggleSim(on){
-  try{
-    if(on){ localStorage.setItem(SIM_KEY,"1");
-      var d=rawQQ()||{projects:[],activeId:null,student:{name:"Amy Edwards"}};
-      if(!Array.isArray(d.projects)) d.projects=[];
-      if(!d.projects.some(function(p){return p.id==="p_demo";})){
-        d.projects.unshift({id:"p_demo",name:"Brain Gut Connection",track:"ib",subj:"ee",assignment:"",cls:"IB EE \u00b7 Period 3",archived:false,created:Date.now(),
-          versions:[{text:"To what extent does the gut microbiome influence adolescent anxiety?",statuses:{},t:Date.now()}], current:0, reflections:[]});
-      }
-      d.student=d.student||{}; if(!d.student.name) d.student.name="Amy Edwards";
-      localStorage.setItem(QQ_KEY, JSON.stringify(d));
-    } else { localStorage.removeItem(SIM_KEY);
-      var d2=rawQQ(); if(d2&&Array.isArray(d2.projects)){ d2.projects=d2.projects.filter(function(p){return p.id!=="p_demo";}); localStorage.setItem(QQ_KEY, JSON.stringify(d2)); }
-    }
-  }catch(e){}
-  location.reload();
-}
-function initSimBar(){ var c=$("simQQ"); if(!c) return; c.checked=simActive(); c.addEventListener("change", function(){ toggleSim(c.checked); }); }
 
 /* ---------- program ---------- */
 function firstSubj(tk){ return CONFIG.lens.tracks[tk].subjectOrder[0]; }
@@ -1395,7 +1366,7 @@ function init(){
   renderRequests();
   renderReflections();
   renderTerms();
-  renderProjTabs(); renderQuestion(); initSimBar();
+  renderProjTabs(); renderQuestion();
   updatePrepared();
 
   $("reqPaste").addEventListener("blur", resolvePaste);
@@ -1434,6 +1405,21 @@ function updatePrintHead(){ var ph=document.getElementById("printHead"); if(!ph)
 window.addEventListener("beforeprint", updatePrintHead);
 function boot(){ init(); updatePrintHead(); }
 if(document.readyState==="loading"){ document.addEventListener("DOMContentLoaded", boot); } else { boot(); }
+</script>
+<script>
+(function(){
+  var KEYS=["rql_state_v2","rql_state_v1","rql_a11y_v1","pledge.v1","sourceHunt.v3","sourceHunt.v2","sourceHunt.simQQ","rql_test"];
+  function wire(){
+    var b=document.getElementById("clearAllBtn"); if(!b) return;
+    b.addEventListener("click",function(){
+      var ok=window.confirm("Start fresh?\n\nThis permanently erases your saved work \u2014 your name, projects, questions, reflections, and reading preferences \u2014 across all three research tools on THIS browser and device. Use it on a shared computer when you're done. This can't be undone.");
+      if(!ok) return;
+      try{ KEYS.forEach(function(k){ localStorage.removeItem(k); }); }catch(e){}
+      location.reload();
+    });
+  }
+  if(document.readyState!=="loading") wire(); else document.addEventListener("DOMContentLoaded",wire);
+})();
 </script>
 </body>
 </html>

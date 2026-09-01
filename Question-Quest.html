@@ -647,7 +647,7 @@
   <!-- ==== end editable next-step ==== -->
   </main>
 
-  <footer>Manasquan High School Media Center · Contact Mrs. Edwards for research help (<a href="mailto:aedwards@manasquan.k12.nj.us">aedwards@manasquan.k12.nj.us</a>)
+  <footer><div class="rql-fresh" style="margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.08);text-align:center"><button type="button" id="clearAllBtn" style="font:inherit;font-size:12.5px;font-weight:600;color:#8a1c1c;background:#fff;border:1px solid #d9b3b3;border-radius:8px;padding:7px 14px;cursor:pointer">Clear my work / Start fresh</button><span style="display:block;font-size:11px;color:#777;margin-top:5px">Erases your saved work on this device — handy on a shared computer.</span></div>Manasquan High School Media Center · Contact Mrs. Edwards for research help (<a href="mailto:aedwards@manasquan.k12.nj.us">aedwards@manasquan.k12.nj.us</a>)
     <div class="colophon">“The Architect of Inquiry” Research Tools © 2026 Amy Edwards, MLIS, School Library Media Specialist, Charles Raffetto Media Center, Manasquan High School. Licensed under CC BY-SA 4.0 · Designed, reviewed, and verified by Amy Edwards; built with AI assistance (Claude, Anthropic, 2026).</div>
   </footer>
 </div>
@@ -982,7 +982,7 @@
   function containsAny(s,arr){ var f=[]; for(var i=0;i<arr.length;i++){ if(s.indexOf(arr[i])>-1) f.push(arr[i]); } return f; }
   function capFirst(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
   function rankOf(s){ return s==="strong"?2 : s==="caution"?1 : 0; }
-  function escapeHTML(s){ return s.replace(/[&<>"]/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function escapeHTML(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
   function fmtTime(ms){ if(!ms) return ""; try{ return new Date(ms).toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}); }catch(e){ return ""; } }
   function humanSpan(ms){
     if(ms<60000) return "under a minute";
@@ -1830,6 +1830,21 @@
     var bits=[]; if(nm)bits.push(nm); if(proj)bits.push(proj); bits.push(new Date().toLocaleDateString()); ph.textContent=bits.join("  \u00B7  "); }
   window.addEventListener("beforeprint", updatePrintHead);
   renderExamples(); updateOr(); bootstrap(); initA11y(); updatePrintHead();
+})();
+</script>
+<script>
+(function(){
+  var KEYS=["rql_state_v2","rql_state_v1","rql_a11y_v1","pledge.v1","sourceHunt.v3","sourceHunt.v2","sourceHunt.simQQ","rql_test"];
+  function wire(){
+    var b=document.getElementById("clearAllBtn"); if(!b) return;
+    b.addEventListener("click",function(){
+      var ok=window.confirm("Start fresh?\n\nThis permanently erases your saved work \u2014 your name, projects, questions, reflections, and reading preferences \u2014 across all three research tools on THIS browser and device. Use it on a shared computer when you're done. This can't be undone.");
+      if(!ok) return;
+      try{ KEYS.forEach(function(k){ localStorage.removeItem(k); }); }catch(e){}
+      location.reload();
+    });
+  }
+  if(document.readyState!=="loading") wire(); else document.addEventListener("DOMContentLoaded",wire);
 })();
 </script>
 </body>
