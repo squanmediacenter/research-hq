@@ -24,3 +24,15 @@ Please credit as:
 ## AI use
 
 These tools were designed by Amy Edwards with AI assistance from Claude (Anthropic, 2026), which supported drafting the code, design, and copy. All content, design choices, and standards alignment were directed, reviewed, and verified by the author, who takes full responsibility for the final work.
+
+## Privacy
+
+These tools are built to be privacy-protective by design:
+
+- **No accounts, no logins, no server, no database.** Each tool runs entirely in the student's browser.
+- **Student work stays on the device.** Projects, questions, reflections, and preferences are saved in the browser's local storage — never sent to a server.
+- **No cookies, tracking, analytics, or advertising.**
+- **Two limited outbound connections, both in Source Hunt:** a DOI lookup to the public [Crossref](https://www.crossref.org/) API (sends only a DOI, no personal information), and an optional "Call for Backup" help form (Microsoft Forms) for stuck sources.
+- **A "Clear my work / Start fresh" button** in every tool erases all saved work on the device — useful on shared computers.
+
+Adopting these tools elsewhere? Run your own privacy review for your jurisdiction, and note that the help form and DOI-lookup contact address are configured for Manasquan and should be updated for your setting.
