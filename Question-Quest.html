@@ -79,11 +79,11 @@
   @media(max-width:560px){.or-grid{grid-template-columns:1fr}}
 
   /* project switcher */
-  .projbar{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px 18px 16px;margin:0 0 18px}
+  .projbar{min-width:0}
   .projbar-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 12px}
   .projbar-head .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0}
   .proj-hint{font-size:12.5px;color:var(--ink-soft);line-height:1.4}
-  .proj-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+  .proj-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;max-height:300px;overflow:auto;padding-right:2px}
   .proj-tab{display:inline-flex;flex-direction:column;align-items:flex-start;gap:1px;font-family:var(--body);text-align:left;padding:8px 14px;border-radius:11px;border:1px solid var(--line);background:#FAFBFD;color:var(--ink-soft);cursor:pointer;transition:.14s;max-width:230px}
   .proj-tab:hover{border-color:var(--signal)}
   .proj-tab .pt-name{font-size:14px;font-weight:600;color:var(--ink);max-width:240px;overflow-wrap:anywhere;line-height:1.25}
@@ -104,13 +104,13 @@
   .proj-btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
   /* archive drawer */
-  .proj-archive{margin-top:12px}
-  .arch-toggle{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);background:none;border:none;cursor:pointer;padding:4px 0}
-  .arch-toggle:hover{color:var(--signal-deep)}
+  .proj-archive{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+  .arch-toggle{display:flex;width:100%;align-items:center;justify-content:space-between;gap:8px;font-family:var(--body);font-size:14.5px;font-weight:600;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:11px;cursor:pointer;padding:13px 16px;transition:.14s}
+  .arch-toggle:hover{border-color:var(--signal);color:var(--signal-deep)}
   .arch-toggle[aria-expanded="true"]{color:var(--ink)}
-  .arch-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .arch-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
   .arch-list[hidden]{display:none}
-  .arch-toggle .caret{display:inline-block;transition:transform .15s;font-size:10px}
+  .arch-toggle .caret{display:inline-block;transition:transform .15s;font-size:12px}
   .arch-item{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#FAFBFD}
   .arch-item .ai-name{font-size:13.5px;font-weight:600;color:var(--ink)}
   .arch-item .ai-meta{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
@@ -325,12 +325,16 @@
   .gloss-pop.show{opacity:1;transform:none;pointer-events:auto}
   .gloss-pop b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6FD8E6;margin-bottom:4px}
 
-  .idbar{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 22px}
+  .setup{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 22px}
+  .setup-cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line);align-items:start}
+  @media(max-width:640px){.setup-cols{grid-template-columns:1fr;gap:18px}.arch-list{grid-template-columns:1fr}}
+  .idbar{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .id-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px}
   .id-lbl span{text-transform:none;letter-spacing:0}
   .idbar input{width:100%;font-family:var(--body);font-size:14.5px;color:var(--ink);padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;background:#FAFBFD}
   .idbar input:focus{outline:none;border-color:var(--signal);box-shadow:0 0 0 3px rgba(11,124,140,.15)}
   .idbar input.needed{border-color:var(--caution);background:var(--caution-bg)}
+  .req{color:var(--weak);margin-left:1px;font-weight:700}
   @media(max-width:560px){.idbar{grid-template-columns:1fr}}
   .proc-summary{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);margin-top:8px}
   .ver-time{font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
@@ -357,7 +361,7 @@
     .next p b{color:#000!important}
     .lens-badge .badge-task,.lens-badge .badge-words,.lens-badge .badge-note{color:#000!important}
     .lens-badge .badge-words{background:transparent!important;border:1px solid #999}
-    .card,.readout,.history,.idbar,details.onramp{box-shadow:none;border:1px solid #ccc}
+    .card,.readout,.history,.setup,details.onramp{box-shadow:none;border:1px solid #ccc}
     textarea{color:#000!important}
     .chip{color:#000!important}
     .chip[aria-pressed="true"]{background:#eee!important;color:#000!important;border:2px solid #000!important}
@@ -463,51 +467,57 @@
   </div>
 
 
-  <!-- ==== Student identity — stamped onto every exported log ==== -->
-  <div class="idbar">
-    <div>
-      <label class="id-lbl" for="stuName">Your name</label>
-      <input id="stuName" type="text" placeholder="First and last name" autocomplete="name">
+  <!-- ==== Set up your investigation (shared across the Labs): name · projects · track ==== -->
+  <section class="setup">
+    <div class="idbar">
+      <div>
+        <label class="id-lbl" for="stuName">Your name<span class="req" aria-hidden="true">*</span></label>
+        <input id="stuName" type="text" placeholder="First and last name" autocomplete="name" aria-required="true">
+      </div>
+      <div>
+        <label class="id-lbl" for="stuClass">Class / period <span>(optional)</span></label>
+        <input id="stuClass" type="text" placeholder="e.g., IB EE — Period 3" autocomplete="off">
+      </div>
     </div>
-    <div>
-      <label class="id-lbl" for="stuClass">Class / period <span>(optional)</span></label>
-      <input id="stuClass" type="text" placeholder="e.g., IB EE — Period 3" autocomplete="off">
-    </div>
-  </div>
 
-  <!-- ==== Project switcher: each project keeps its own question, history & reflections ==== -->
-  <div class="projbar">
-    <div class="projbar-head">
-      <p class="lbl">My projects</p>
-      <span class="proj-hint">Each project keeps its own question, history, and reflections &mdash; so multiple courses and summer work stay separate. They follow you between Question Quest and Source Hunt, and stay saved in this browser on this device.</span>
+    <div class="setup-cols">
+      <!-- Project switcher: each project keeps its own question, history & reflections -->
+      <div class="projbar">
+        <div class="projbar-head">
+          <p class="lbl">My projects</p>
+          <span class="proj-hint">Each project keeps its own question, history, and reflections &mdash; so multiple courses and summer work stay separate. They follow you across your research tools, and stay saved in this browser on this device.</span>
+        </div>
+        <div class="proj-tabs" id="projTabs" role="group" aria-label="Your projects"></div>
+        <div class="proj-actions">
+          <button class="proj-btn" id="newProj">+ New project</button>
+          <button class="proj-btn ghost" id="renameProj">Rename</button>
+          <button class="proj-btn ghost" id="archiveProj">Archive</button>
+          <button class="proj-btn ghost danger" id="deleteProj">Delete</button>
+        </div>
+      </div>
+
+      <!-- Two-tier "I'm working on" lens: track then subject -->
+      <div class="lens">
+        <p class="lbl">I'm working on</p>
+        <div class="chips track" id="trackChips" role="group" aria-label="Select your track"></div>
+        <div class="lens-step" id="lensSubjWrap" hidden>
+          <div class="lens-divider"><span>then choose your subject &rarr;</span></div>
+          <div class="chips subj lens-subj" id="lensSubjChips" role="group" aria-label="Select your subject"></div>
+        </div>
+        <div class="assignment-row" id="assignmentRow" style="display:none">
+          <label for="projAssignment">Your assignment <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-soft)">(optional)</span></label>
+          <input id="projAssignment" type="text" placeholder="" autocomplete="off">
+        </div>
+        <div class="lens-badge" id="lensBadge"></div>
+      </div>
     </div>
-    <div class="proj-tabs" id="projTabs" role="group" aria-label="Your projects"></div>
-    <div class="proj-actions">
-      <button class="proj-btn" id="newProj">+ New project</button>
-      <button class="proj-btn ghost" id="renameProj">Rename</button>
-      <button class="proj-btn ghost" id="archiveProj">Archive</button>
-      <button class="proj-btn ghost danger" id="deleteProj">Delete</button>
-    </div>
+
+    <!-- Archived projects (full width, shared with the other Labs) -->
     <div class="proj-archive">
       <button class="arch-toggle" id="toggleArchived" aria-expanded="false" style="display:none">Archived (0)</button>
       <div class="arch-list" id="archivedList" hidden></div>
     </div>
-  </div>
-
-  <!-- ==== Two-tier "I'm working on" lens: track then subject ==== -->
-  <div class="lens">
-    <p class="lbl">I'm working on</p>
-    <div class="chips track" id="trackChips" role="group" aria-label="Select your track"></div>
-    <div class="lens-step" id="lensSubjWrap" hidden>
-      <div class="lens-divider"><span>then choose your subject &rarr;</span></div>
-      <div class="chips subj lens-subj" id="lensSubjChips" role="group" aria-label="Select your subject"></div>
-    </div>
-    <div class="assignment-row" id="assignmentRow" style="display:none">
-      <label for="projAssignment">Your assignment <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-soft)">(optional)</span></label>
-      <input id="projAssignment" type="text" placeholder="" autocomplete="off">
-    </div>
-    <div class="lens-badge" id="lensBadge"></div>
-  </div>
+  </section>
 
   <details class="onramp" open id="lab" tabindex="-1">
     <summary>1 &middot; Connect the Clues <span class="tw">▾</span></summary>
@@ -910,7 +920,9 @@
   function saveState(){
     if(!HAS_STORAGE) return;
     syncViewToProject();
-    try{ window.localStorage.setItem(STORE_KEY, JSON.stringify({projects:projects,activeId:activeId,student:student})); }catch(e){}
+    var _nameOut=student.name;   /* never overwrite a name another tool saved with an empty one */
+    if(!(_nameOut||"").trim()){ try{ var _d=JSON.parse(window.localStorage.getItem(STORE_KEY)||"{}"); if(_d&&_d.student&&(_d.student.name||"").trim()) _nameOut=_d.student.name; }catch(e){} }
+    try{ window.localStorage.setItem(STORE_KEY, JSON.stringify({projects:projects,activeId:activeId,student:{name:_nameOut,cls:student.cls}})); }catch(e){}
   }
   function clearStorage(){ if(HAS_STORAGE){ try{ window.localStorage.removeItem(STORE_KEY); }catch(e){} } }
   function loadState(){
@@ -1220,7 +1232,7 @@
   function renderArchived(){
     var wrap=$("archivedList"), toggle=$("toggleArchived"); if(!wrap||!toggle) return;
     var arch=projects.filter(function(p){ return p.archived; }).sort(function(a,b){ return (b.created||0)-(a.created||0); });
-    toggle.style.display = arch.length? "inline-flex":"none";
+    toggle.style.display = arch.length? "flex":"none";
     if(!arch.length){ wrap.hidden=true; toggle.setAttribute("aria-expanded","false"); }
     archToggleLabel();
     wrap.innerHTML="";
@@ -1555,6 +1567,8 @@
       L.push("   "+groupMarkers(v.statuses));
       L.push("");
     });
+    L.push("");
+    L.push("\u00A9 2026 Amy Edwards, MLIS | Charles Raffetto Media Center");
     return L.join("\n");
   }
   function buildHtmlLog(){
@@ -1586,6 +1600,7 @@
     hist.forEach(function(i){ var v=versions[i];
       h.push('<p style="margin:0 0 10px;"><b>v'+(i+1)+'</b>'+(v.t?' &nbsp;\u00B7&nbsp; '+e(fmtTime(v.t)):'')+(v.verdict?' &nbsp;\u00B7&nbsp; '+e(v.verdict.label):'')+'<br>\u201C'+e(v.text)+'\u201D<br><span style="color:#444;">'+groupMarkersHtml(v.statuses)+'</span></p>');
     });
+    h.push('<p style="margin:14px 0 0;font-size:9pt;color:#888;">\u00A9 2026 Amy Edwards, MLIS | Charles Raffetto Media Center</p>');
     h.push('</div>');
     return h.join("");
   }

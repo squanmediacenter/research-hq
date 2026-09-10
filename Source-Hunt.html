@@ -9,6 +9,7 @@
   :root{
     --ink:#111A2B; --ink-soft:#42506A; --paper:#EEF1F6; --surface:#FFFFFF; --line:#D6DDE8;
     --signal:#0B7C8C; --bright:#6FD8E6; --wash:#F5F8FB;
+    --caution:#C6841E; --caution-bg:#FBF0DC; --weak:#D64A48; --weak-bg:#FBE7E6;
     --ok:#1B7F6B; --warn:#B7791F; --stop:#B23A48;
     --body:'Inter',system-ui,-apple-system,sans-serif;
     --display:'Space Grotesk',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',monospace;
@@ -32,12 +33,17 @@
   .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 9px}
 
   /* identity */
-  .idbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .setup{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 22px}
+  .setup-cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line);align-items:start}
+  @media(max-width:640px){.setup-cols{grid-template-columns:1fr;gap:18px}.arch-list{grid-template-columns:1fr}}
+  .idbar{display:flex;gap:12px;flex-wrap:wrap}
   .idbar .f{flex:1;min-width:170px}
   .idbar label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px}
   .idbar label span{text-transform:none;letter-spacing:0}
   .idbar input{width:100%;font-family:var(--body);font-size:14.5px;color:var(--ink);padding:9px 12px;border:1.5px solid var(--line);border-radius:9px;background:#FAFBFD}
   .idbar input:focus{outline:none;border-color:var(--signal)}
+  .idbar input.needed{border-color:var(--caution);background:var(--caution-bg)}
+  .req{color:var(--weak);margin-left:1px;font-weight:700}
 
   /* chips */
   .chips{display:flex;gap:9px;flex-wrap:wrap}
@@ -178,11 +184,11 @@
   .wb-hint{font-family:var(--body);font-size:12px;color:var(--ink-soft);text-transform:none;letter-spacing:0}
   .publib{font-size:12.5px;color:var(--ink-soft);background:var(--wash);border-radius:9px;padding:10px 13px;margin:14px 0 0;line-height:1.5}
   .steps{margin:8px 0 0;padding-left:22px;color:var(--ink);font-size:14px;line-height:1.55}
-  .projbar{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px 18px 16px;margin:0 0 18px}
+  .projbar{min-width:0}
   .projbar-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 12px}
   .projbar-head .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0}
   .proj-hint{font-size:12.5px;color:var(--ink-soft);line-height:1.4}
-  .proj-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+  .proj-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;max-height:300px;overflow:auto;padding-right:2px}
   .proj-tab{display:inline-flex;flex-direction:column;align-items:flex-start;gap:1px;font-family:var(--body);text-align:left;padding:8px 14px;border-radius:11px;border:1px solid var(--line);background:#FAFBFD;color:var(--ink-soft);cursor:pointer;transition:.14s;max-width:230px}
   .proj-tab:hover{border-color:var(--signal)}
   .proj-tab .pt-name{font-size:14px;font-weight:600;color:var(--ink);max-width:240px;overflow-wrap:anywhere;line-height:1.25}
@@ -201,13 +207,13 @@
   .proj-btn.danger{color:var(--stop)}
   .proj-btn.danger:hover{background:#FBE7E6;border-color:var(--stop)}
   .proj-btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-  .proj-archive{margin-top:12px}
-  .arch-toggle{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);background:none;border:none;cursor:pointer;padding:4px 0}
-  .arch-toggle:hover{color:var(--signal)}
+  .proj-archive{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+  .arch-toggle{display:flex;width:100%;align-items:center;justify-content:space-between;gap:8px;font-family:var(--body);font-size:14.5px;font-weight:600;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:11px;cursor:pointer;padding:13px 16px;transition:.14s}
+  .arch-toggle:hover{border-color:var(--signal);color:var(--signal)}
   .arch-toggle[aria-expanded="true"]{color:var(--ink)}
-  .arch-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .arch-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
   .arch-list[hidden]{display:none}
-  .arch-toggle .caret{display:inline-block;transition:transform .15s;font-size:10px}
+  .arch-toggle .caret{display:inline-block;transition:transform .15s;font-size:12px}
   .arch-item{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#FAFBFD}
   .arch-item .ai-name{font-size:13.5px;font-weight:600;color:var(--ink)}
   .arch-item .ai-meta{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
@@ -234,9 +240,9 @@
   .icon-btn:hover{background:var(--wash);border-color:var(--signal)}
   .icon-btn:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
   a.ghost{display:inline-flex;align-items:center;gap:5px;text-decoration:none}
-  .card.setup{border-left:4px solid var(--bright)}
-  .setup .eyebrow-mini{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal);margin:0 0 4px}
-  .setup h2{margin:0}
+  .card.step0{border-left:4px solid var(--bright)}
+  .step0 .eyebrow-mini{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal);margin:0 0 4px}
+  .step0 h2{margin:0}
   a.run{display:inline-block;text-decoration:none;margin-top:12px}
   a.run:hover{background:#0a6b78}
   .steps li{margin-bottom:7px}
@@ -363,33 +369,51 @@
 
 
 
-  <!-- identity -->
-  <div class="idbar">
-    <div class="f"><label for="nm">Your name</label><input id="nm" type="text" placeholder="First and last name" autocomplete="off"></div>
-    <div class="f"><label for="cl">Class / period <span>(optional)</span></label><input id="cl" type="text" placeholder="e.g., IB EE &mdash; Period 3" autocomplete="off"></div>
-  </div>
+  <!-- ==== Set up your investigation (shared across the Labs): name · projects · track ==== -->
+  <section class="setup">
+    <div class="idbar">
+      <div class="f"><label for="nm">Your name<span class="req" aria-hidden="true">*</span></label><input id="nm" type="text" placeholder="First and last name" autocomplete="off" aria-required="true"></div>
+      <div class="f"><label for="cl">Class / period <span>(optional)</span></label><input id="cl" type="text" placeholder="e.g., IB EE &mdash; Period 3" autocomplete="off"></div>
+    </div>
 
-  <!-- projects (shared with Question Quest) -->
-  <div class="projbar">
-    <div class="projbar-head">
-      <p class="lbl">My projects</p>
-      <span class="proj-hint">Each project keeps its own question, history, and reflections &mdash; so multiple courses and summer work stay separate. They follow you between Question Quest and Source Hunt, and stay saved in this browser on this device.</span>
+    <div class="setup-cols">
+      <!-- projects (shared with the other Labs) -->
+      <div class="projbar">
+        <div class="projbar-head">
+          <p class="lbl">My projects</p>
+          <span class="proj-hint">Each project keeps its own question, history, and reflections &mdash; so multiple courses and summer work stay separate. They follow you across your research tools, and stay saved in this browser on this device.</span>
+        </div>
+        <div class="proj-tabs" id="projTabs" role="group" aria-label="Your projects"></div>
+        <div class="proj-actions">
+          <button type="button" class="proj-btn" id="newProj">+ New project</button>
+          <button type="button" class="proj-btn ghost" id="renameProj">Rename</button>
+          <button type="button" class="proj-btn ghost" id="archiveProj">Archive</button>
+          <button type="button" class="proj-btn ghost danger" id="deleteProj">Delete</button>
+        </div>
+      </div>
+
+      <!-- program lens (two-tier: track then subject) -->
+      <div class="lens">
+        <p class="lbl">I'm working on</p>
+        <div class="chips track" id="lensTrackChips" role="group" aria-label="Select your track"></div>
+        <div class="lens-step" id="lensSubjWrap" hidden>
+          <div class="lens-divider"><span>then choose your subject &rarr;</span></div>
+          <div class="chips subj lens-subj" id="lensSubjChips" role="group" aria-label="Select your subject"></div>
+        </div>
+        <div class="lens-badge" id="lensBadge"></div>
+        <p class="prog-note" id="progNote"></p>
+      </div>
     </div>
-    <div class="proj-tabs" id="projTabs" role="group" aria-label="Your projects"></div>
-    <div class="proj-actions">
-      <button type="button" class="proj-btn" id="newProj">+ New project</button>
-      <button type="button" class="proj-btn ghost" id="renameProj">Rename</button>
-      <button type="button" class="proj-btn ghost" id="archiveProj">Archive</button>
-      <button type="button" class="proj-btn ghost danger" id="deleteProj">Delete</button>
-    </div>
+
+    <!-- Archived projects (full width, shared with the other Labs) -->
     <div class="proj-archive">
       <button type="button" class="arch-toggle" id="toggleArchived" aria-expanded="false" style="display:none">Archived (0)</button>
       <div class="arch-list" id="archivedList" hidden></div>
     </div>
-  </div>
+  </section>
 
   <!-- my research question (editable; pull from Question Quest on demand) -->
-  <div class="card qcard">
+  <div class="card qcard" id="lab" tabindex="-1">
     <p class="lbl">My research question</p>
     <div class="sec-listen"><button type="button" class="listen" data-target="dirQ" aria-pressed="false" aria-label="Listen to the directions for my research question"><span class="spk"></span><span class="ltxt">Listen</span></button></div>
     <p id="dirQ" class="sub">Questions morph as you research &mdash; edit yours anytime, and copy it straight into a database search box.</p>
@@ -404,20 +428,8 @@
     </div>
   </div>
 
-  <!-- program lens (two-tier: track then subject) -->
-  <div class="card" id="lab" tabindex="-1">
-    <p class="lbl">I'm working on</p>
-    <div class="chips track" id="lensTrackChips" role="group" aria-label="Select your track"></div>
-    <div class="lens-step" id="lensSubjWrap" hidden>
-      <div class="lens-divider"><span>then choose your subject &rarr;</span></div>
-      <div class="chips subj lens-subj" id="lensSubjChips" role="group" aria-label="Select your subject"></div>
-    </div>
-    <div class="lens-badge" id="lensBadge"></div>
-    <p class="prog-note" id="progNote"></p>
-  </div>
-
   <!-- Step 0 · NoodleTools setup -->
-  <div class="card setup" id="noodle-setup">
+  <div class="card step0" id="noodle-setup">
     <p class="eyebrow-mini">Step 0 &middot; Before you start</p>
     <h2>Create your NoodleTools Project folder</h2>
     <div class="sec-listen"><button type="button" class="listen" data-target="dir0" aria-pressed="false" aria-label="Listen to the directions for setting up NoodleTools"><span class="spk"></span><span class="ltxt">Listen</span></button></div>
@@ -705,7 +717,7 @@ function loadIntoState(){
 }
 function save(){
   var p=activeProj(); if(!p) return;
-  shared.student.name=state.name; p.cls=state.cls; p.track=state.track; p.subj=state.subj; p.lensStage=state.lensStage; persistShared();
+  if((state.name||"").trim()) shared.student.name=state.name; p.cls=state.cls; p.track=state.track; p.subj=state.subj; p.lensStage=state.lensStage; persistShared();
   var b=bucket(p.id); b.need=state.need; b.requests=state.requests; b.reflections=state.reflections; b.question=state.question; persistSH();
 }
 function migrate(){
@@ -759,7 +771,7 @@ function archToggleLabel(){ var wrap=$("archivedList"), toggle=$("toggleArchived
 function renderArchived(){
   var wrap=$("archivedList"), toggle=$("toggleArchived"); if(!wrap||!toggle) return;
   var arch=shared.projects.filter(function(p){return p.archived;}).sort(function(a,b){ return (b.created||0)-(a.created||0); });
-  toggle.style.display=arch.length?"inline-flex":"none"; if(!arch.length){ wrap.hidden=true; toggle.setAttribute("aria-expanded","false"); }
+  toggle.style.display=arch.length?"flex":"none"; if(!arch.length){ wrap.hidden=true; toggle.setAttribute("aria-expanded","false"); }
   archToggleLabel(); wrap.innerHTML="";
   arch.forEach(function(p){ var row=document.createElement("div"); row.className="arch-item";
     row.innerHTML='<span class="ai-name">'+esc(p.name)+'</span><span class="ai-meta">'+esc(projMeta(p))+'</span>'+
@@ -1044,7 +1056,7 @@ function buildFormUrl(r){
 }
 function copyText(t){ try{ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t); } }catch(e){} }
 function sendRequest(id){
-  if(!nameOK()){ fmsg("Add your name at the top first \u2014 so Mrs. Edwards knows whose request this is."); $("nm").focus(); return; }
+  if(!nameOK()){ $("nm").classList.add("needed"); fmsg("Add your name at the top first \u2014 so Mrs. Edwards knows whose request this is."); $("nm").focus(); return; }
   var r=findReq(id); if(!r) return;
   copyText(reqPayload(r));
   var url=buildFormUrl(r);
@@ -1134,10 +1146,13 @@ function nameOK(){ return state.name.trim().length>0; }
 function buildPlain(){
   var p=progInfo();
   var L=[];
-  L.push("SOURCE HUNT \u2014 PROGRESS LOG");
-  L.push("Student:  "+(state.name||"(no name)")+(state.cls?("   |   "+state.cls):""));
-  L.push("Program:  "+p.label);
-  L.push("Exported:  "+now()+"  (times are device-local)");
+  var _title="SOURCE HUNT \u2014 PROGRESS LOG"; var _bar=""; for(var _i=0;_i<_title.length;_i++)_bar+="=";
+  var _ap=(shared.projects||[]).filter(function(x){return x&&x.id===activeId;})[0];
+  L.push(_title); L.push(_bar); L.push("");
+  L.push("Student:    "+(state.name||"(no name)")+(state.cls?(" ("+state.cls+")"):""));
+  L.push("Project:    "+(_ap&&_ap.name?_ap.name:""));
+  L.push("Working on: "+p.label);
+  L.push("Exported:   "+now()+"  (times are device-local)");
   L.push("");
   L.push("CALL FOR BACKUP \u2014 SOURCES I NEED HELP ACCESSING ("+state.requests.length+")");
   if(!state.requests.length){ L.push("  (none \u2014 nothing stuck)"); }
@@ -1156,6 +1171,8 @@ function buildPlain(){
   state.reflections.forEach(function(r){ L.push("  \u2022 "+r.ts+" \u2014 "+r.text); });
   L.push("");
   L.push("Prepared by "+(state.name||"(no name)")+" \u2014 Source Hunt");
+  L.push("");
+  L.push("\u00A9 2026 Amy Edwards, MLIS | Charles Raffetto Media Center");
   return L.join("\n");
 }
 function buildHtml(){
@@ -1163,8 +1180,10 @@ function buildHtml(){
   var h=[];
   h.push('<div style="font-family:Segoe UI,Arial,sans-serif;color:#111">');
   h.push('<h2 style="margin:0 0 4px">Source Hunt \u2014 Progress Log</h2>');
-  h.push('<p style="margin:0 0 2px"><b>Student:</b> '+esc(state.name||"(no name)")+(state.cls?(" &nbsp;|&nbsp; "+esc(state.cls)):"")+'</p>');
-  h.push('<p style="margin:0 0 2px"><b>Program:</b> '+esc(p.label)+'</p>');
+  var _ap=(shared.projects||[]).filter(function(x){return x&&x.id===activeId;})[0];
+  h.push('<p style="margin:0 0 2px"><b>Student:</b> '+esc(state.name||"(no name)")+(state.cls?(" ("+esc(state.cls)+")"):"")+'</p>');
+  h.push('<p style="margin:0 0 2px"><b>Project:</b> '+esc(_ap&&_ap.name?_ap.name:"")+'</p>');
+  h.push('<p style="margin:0 0 2px"><b>Working on:</b> '+esc(p.label)+'</p>');
   h.push('<p style="margin:0 0 10px"><b>Exported:</b> '+esc(now())+' (times are device-local)</p>');
   h.push('<h3 style="margin:12px 0 4px">Call for Backup &mdash; sources I need help accessing ('+state.requests.length+')</h3>');
   if(!state.requests.length){ h.push('<p style="color:#666">(none &mdash; nothing stuck)</p>'); }
@@ -1190,11 +1209,12 @@ function buildHtml(){
     });
   }
   h.push('<p style="margin-top:12px;color:#555;font-size:12px">Prepared by '+esc(state.name||"(no name)")+' \u2014 Source Hunt</p>');
+  h.push('<p style="margin-top:10px;font-size:9pt;color:#888">\u00A9 2026 Amy Edwards, MLIS | Charles Raffetto Media Center</p>');
   h.push('</div>');
   return h.join("");
 }
 function copyLog(){
-  if(!nameOK()){ $("nameWarn").style.display="inline"; $("nm").focus(); return; }
+  if(!nameOK()){ $("nm").classList.add("needed"); $("nameWarn").style.display="inline"; $("nm").focus(); return; }
   $("nameWarn").style.display="none";
   var plain=buildPlain(), html=buildHtml();
   function fallback(){
@@ -1355,7 +1375,7 @@ window.addEventListener("afterprint", function(){ if(_pTitle!=null) document.tit
 function init(){
   bootProjects();
   $("nm").value=state.name; $("cl").value=state.cls;
-  $("nm").addEventListener("input", function(){ state.name=$("nm").value; if(nameOK())$("nameWarn").style.display="none"; save(); updatePrepared(); });
+  $("nm").addEventListener("input", function(){ state.name=$("nm").value; if(nameOK())$("nameWarn").style.display="none"; $("nm").classList.remove("needed"); save(); updatePrepared(); });
   $("cl").addEventListener("input", function(){ state.cls=$("cl").value; save(); });
 
   renderLens();

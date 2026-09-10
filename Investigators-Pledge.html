@@ -58,8 +58,12 @@
   .rule-listen{padding:3px 9px;font-size:11.5px}
   .ui-ref{font-weight:700;color:var(--signal-deep)}
 
+  /* ===== unified setup card (shared across the Labs): name · projects · track ===== */
+  .setup{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 22px}
+  .setup-cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line);align-items:start}
+  @media(max-width:640px){.setup-cols{grid-template-columns:1fr;gap:18px}.arch-list{grid-template-columns:1fr}}
   /* ===== identity fields ===== */
-  .idbar{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 22px}
+  .idbar{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .id-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px}
   .id-lbl span{text-transform:none;letter-spacing:0}
   .idbar input{width:100%;font-family:var(--body);font-size:14.5px;color:var(--ink);padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;background:#FAFBFD}
@@ -68,11 +72,29 @@
   @media(max-width:560px){.idbar{grid-template-columns:1fr}}
 
   /* ===== project switcher (shared with Question Quest & Source Hunt) ===== */
-  .projbar{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px 18px 16px;margin:0 0 22px}
+  .projbar{min-width:0}
+  /* ===== "I'm working on" lens (track -> subject), shared across the Labs ===== */
+  .lens{min-width:0}
+  .lens .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 6px}
+  .lens-sub{font-size:12px;color:var(--ink-soft);line-height:1.4;margin:0 0 10px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-family:var(--body);font-size:13.5px;font-weight:500;padding:8px 14px;border-radius:11px;border:1px solid var(--line);background:#FAFBFD;color:var(--ink-soft);cursor:pointer;transition:.14s}
+  .chip:hover{border-color:var(--signal)}
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .chip:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+  .chips.subj .chip{font-size:12.5px;padding:7px 12px}
+  .lens .chips.track{margin:0 0 4px}
+  .lens-step{margin-top:8px}
+  .lens-divider{display:flex;align-items:center;gap:8px;margin:6px 0}
+  .lens-divider::before{content:"";height:1px;background:var(--line);width:20px}
+  .lens-divider span{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
+  .lens-subj{margin-top:2px}
+  .lens-badge{margin-top:12px;padding:10px 13px;background:#F5F8FB;border:1px solid var(--line);border-radius:10px;font-family:var(--display);font-weight:600;font-size:14px;color:var(--ink);line-height:1.35}
+  .lens-badge .badge-hint{font-family:var(--body);font-weight:400;font-size:12.5px;color:var(--ink-soft)}
   .projbar-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 12px}
   .projbar-head .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0}
   .proj-hint{font-size:12px;color:var(--ink-soft);line-height:1.4}
-  .proj-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+  .proj-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;max-height:300px;overflow:auto;padding-right:2px}
   .proj-tab{display:inline-flex;flex-direction:column;align-items:flex-start;gap:1px;font-family:var(--body);text-align:left;padding:8px 14px;border-radius:11px;border:1px solid var(--line);background:#FAFBFD;color:var(--ink-soft);cursor:pointer;transition:.14s;max-width:230px}
   .proj-tab:hover{border-color:var(--signal)}
   .proj-tab .pt-name{font-size:14px;font-weight:600;color:var(--ink);max-width:240px;overflow-wrap:anywhere;line-height:1.25}
@@ -91,13 +113,13 @@
   .proj-btn.danger{color:var(--weak)}
   .proj-btn.danger:hover{background:var(--weak-bg);border-color:var(--weak)}
   .proj-btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-  .proj-archive{margin-top:12px}
-  .arch-toggle{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);background:none;border:none;cursor:pointer;padding:4px 0}
-  .arch-toggle:hover{color:var(--signal-deep)}
+  .proj-archive{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+  .arch-toggle{display:flex;width:100%;align-items:center;justify-content:space-between;gap:8px;font-family:var(--body);font-size:14.5px;font-weight:600;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:11px;cursor:pointer;padding:13px 16px;transition:.14s}
+  .arch-toggle:hover{border-color:var(--signal);color:var(--signal-deep)}
   .arch-toggle[aria-expanded="true"]{color:var(--ink)}
-  .arch-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .arch-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
   .arch-list[hidden]{display:none}
-  .arch-toggle .caret{display:inline-block;transition:transform .15s;font-size:10px}
+  .arch-toggle .caret{display:inline-block;transition:transform .15s;font-size:12px}
   .arch-item{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#FAFBFD}
   .arch-item .ai-name{font-size:13.5px;font-weight:600;color:var(--ink)}
   .arch-item .ai-meta{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
@@ -144,13 +166,14 @@
   .colophon{margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--ink-soft)}
 
   @media print{
-    .skip-link,.a11y-bar,.actions,.listen,.sec-listen,.proj-actions,.proj-hint,.proj-archive{display:none!important}
+    .skip-link,.a11y-bar,.actions,.listen,.sec-listen,.proj-actions,.proj-hint,.proj-archive,.lens-sub,.lens .chips,.lens-step{display:none!important}
     .proj-tab:not(.active){display:none!important}
     .proj-tab.active{background:transparent!important;border:none!important;padding:2px 0!important}
     .proj-tab.active .pt-name{color:#000!important}
     .proj-tab.active .pt-meta{color:#333!important}
     body{background:#fff}
-    .rule,.ai,.lede,.projbar,.idbar{break-inside:avoid;border-color:#999;box-shadow:none}
+    .rule,.ai,.lede,.setup{break-inside:avoid;border-color:#999;box-shadow:none}
+    .lens-badge{border-color:#999}
     .rule>input{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     .colophon{color:#333!important}
   }
@@ -191,40 +214,58 @@
   </div>
 
   <div class="lede">
-    <p id="ledeText"><strong>Every investigation opens with two things:</strong> what counts as evidence, and the rules the investigator works by. These are Manasquan High School&rsquo;s Rules of Evidence. Check the ones you commit to, sign your name, and submit to Canvas.</p>
+    <p id="ledeText"><strong>Every investigation opens with two things:</strong> what counts as evidence, and the rules the investigator works by. These are Manasquan High School&rsquo;s Rules of Evidence. Check the ones you commit to, sign your name, and submit it to your teacher as directed.</p>
     <div class="sec-listen"><button type="button" class="listen" data-target="ledeText" aria-pressed="false" aria-label="Listen to the introduction"><span class="spk"></span><span class="ltxt">Listen</span></button></div>
   </div>
 
-  <!-- ==== Student identity (shared across the Labs) ==== -->
-  <div class="idbar">
-    <div>
-      <label class="id-lbl" for="name">Your name</label>
-      <input id="name" type="text" placeholder="First and last name" autocomplete="name">
+  <!-- ==== Set up your investigation (shared across the Labs): name · projects · track ==== -->
+  <section class="setup" aria-label="Set up your investigation">
+    <div class="idbar">
+      <div>
+        <label class="id-lbl" for="name">Your name<span class="req" aria-hidden="true">*</span></label>
+        <input id="name" type="text" placeholder="First and last name" autocomplete="name" aria-required="true">
+      </div>
+      <div>
+        <label class="id-lbl" for="course">Class / period <span>(optional)</span></label>
+        <input id="course" type="text" placeholder="e.g., IB EE &mdash; Period 3" autocomplete="off">
+      </div>
     </div>
-    <div>
-      <label class="id-lbl" for="course">Class / period <span>(optional)</span></label>
-      <input id="course" type="text" placeholder="e.g., IB EE &mdash; Period 3" autocomplete="off">
-    </div>
-  </div>
 
-  <!-- ==== Project switcher: shared with Question Quest & Source Hunt ==== -->
-  <div class="projbar">
-    <div class="projbar-head">
-      <p class="lbl">My projects</p>
-      <span class="proj-hint">Projects follow you throughout all the stages of your research investigation and will stay saved in this browser on this device.</span>
+    <div class="setup-cols">
+      <!-- Projects (shared with Question Quest & Source Hunt) -->
+      <div class="projbar">
+        <div class="projbar-head">
+          <p class="lbl">My projects</p>
+          <span class="proj-hint">Each project keeps its own question, history, and reflections &mdash; so multiple courses and summer work stay separate. They follow you across your research tools, and stay saved in this browser on this device.</span>
+        </div>
+        <div class="proj-tabs" id="projTabs" role="group" aria-label="Your projects"></div>
+        <div class="proj-actions">
+          <button class="proj-btn" id="newProj">+ New project</button>
+          <button class="proj-btn ghost" id="renameProj">Rename</button>
+          <button class="proj-btn ghost" id="archiveProj">Archive</button>
+          <button class="proj-btn ghost danger" id="deleteProj">Delete</button>
+        </div>
+      </div>
+
+      <!-- I'm working on (track -> subject). Seeds the shared project so the other tools inherit it. -->
+      <div class="lens" id="lens">
+        <p class="lbl">I&rsquo;m working on</p>
+        <p class="lens-sub">Set your track for this investigation &mdash; it carries into your other research tools and is stamped on your printed pledge.</p>
+        <div class="chips track" id="trackChips" role="group" aria-label="Select your track"></div>
+        <div class="lens-step" id="lensSubjWrap" hidden>
+          <div class="lens-divider"><span>then choose your subject &rarr;</span></div>
+          <div class="chips subj lens-subj" id="lensSubjChips" role="group" aria-label="Select your subject"></div>
+        </div>
+        <div class="lens-badge" id="lensBadge"></div>
+      </div>
     </div>
-    <div class="proj-tabs" id="projTabs" role="group" aria-label="Your projects"></div>
-    <div class="proj-actions">
-      <button class="proj-btn" id="newProj">+ New project</button>
-      <button class="proj-btn ghost" id="renameProj">Rename</button>
-      <button class="proj-btn ghost" id="archiveProj">Archive</button>
-      <button class="proj-btn ghost danger" id="deleteProj">Delete</button>
-    </div>
+
+    <!-- Archived projects (full width, shared with Question Quest & Source Hunt) -->
     <div class="proj-archive">
       <button class="arch-toggle" id="toggleArchived" aria-expanded="false" style="display:none">Archived (0)</button>
       <div class="arch-list" id="archivedList" hidden></div>
     </div>
-  </div>
+  </section>
 
   <h2 class="sec" id="rulesHeading" tabindex="-1">The Rules of Evidence<span class="req" aria-hidden="true">*</span></h2>
   <div class="sec-listen"><button type="button" class="listen" data-target="rules" aria-pressed="false" aria-label="Listen to all five rules of evidence"><span class="spk"></span><span class="ltxt">Listen to all rules</span></button></div>
@@ -240,8 +281,8 @@
   <div class="note" id="pledgeAffirm"><span class="note-label">My signature is my Investigator&rsquo;s Pledge</span>My words are mine. My sources are real and named. I use AI only when allowed, and I always say so.</div>
 
   <div class="actions">
-    <button class="primary" id="copyBtn" disabled>&#10003; Sign &amp; copy my pledge</button>
-    <button class="ghost" id="dlBtn" disabled>Download .txt (backup)</button>
+    <button class="primary" id="copyBtn">&#10003; Sign &amp; copy my pledge</button>
+    <button class="ghost" id="dlBtn">Download .txt (backup)</button>
     <button class="ghost" id="printBtn">Print / save as PDF</button>
     <button class="ghost" id="resetBtn">Clear this pledge</button>
   </div>
@@ -270,10 +311,45 @@
   /* ===== shared project list (co-owned with Question Quest & Source Hunt) + this pledge's per-project data ===== */
   var QQ_KEY="rql_state_v2", PLEDGE_KEY="pledge.v1";
   var TRACK_LABEL={ib:"IB", ap:"AP Capstone", "class":"Class Research"};
+  /* ===== "I'm working on" lens config (keys match Question Quest so the shared project round-trips) ===== */
+  var LENS={
+    order:["ib","ap","class"],
+    tracks:{
+      ib:{label:"IB", order:["dance","english","ess","ee","history","math","psych","spanish"], subjects:{
+        dance:{label:"Dance", badge:"IB \u2014 Dance Investigation"},
+        english:{label:"English Literature", badge:"IB English Lit \u2014 HL Essay"},
+        ess:{label:"Env. Science & Societies", badge:"IB ESS \u2014 Individual Investigation"},
+        ee:{label:"Extended Essay", badge:"IB \u2014 Extended Essay"},
+        history:{label:"History", badge:"IB History \u2014 Historical Investigation"},
+        math:{label:"Math (Analysis & Approaches)", badge:"IB Math AA \u2014 Exploration"},
+        psych:{label:"Psychology", badge:"IB Psychology \u2014 Internal Assessment"},
+        spanish:{label:"Spanish B", badge:"IB Spanish B \u2014 (oral IA; no paper)"}
+      }},
+      ap:{label:"AP Capstone", order:["seminar","research"], subjects:{
+        seminar:{label:"AP Seminar", badge:"AP Seminar (QUEST)"},
+        research:{label:"AP Research", badge:"AP Research"}
+      }},
+      "class":{label:"Class Research", order:["business","ela","math","science","social","stem","arts","world"], subjects:{
+        business:{label:"Business/Econ", badge:"Class Research \u2014 Business/Econ"},
+        ela:{label:"ELA", badge:"Class Research \u2014 ELA"},
+        math:{label:"Math", badge:"Class Research \u2014 Math"},
+        science:{label:"Science", badge:"Class Research \u2014 Science"},
+        social:{label:"Social Studies", badge:"Class Research \u2014 Social Studies"},
+        stem:{label:"STEM/Engineering", badge:"Class Research \u2014 STEM/Engineering"},
+        arts:{label:"Visual & Performing Arts", badge:"Class Research \u2014 Visual & Performing Arts"},
+        world:{label:"World Languages", badge:"Class Research \u2014 World Languages"}
+      }}
+    }
+  };
+  function lensTrackDef(tk){ return LENS.tracks[tk] || LENS.tracks[LENS.order[0]]; }
+  function lensFirstSubj(tk){ return lensTrackDef(tk).order[0]; }
+  function lensBadgeText(p){ if(!p) return ""; var t=lensTrackDef(p.track); var sj=t.subjects[p.subj]?p.subj:t.order[0]; return t.subjects[sj].badge; }
+  function normLens(p){ if(!p) return; if(!LENS.tracks[p.track]) p.track=LENS.order[0]; var t=LENS.tracks[p.track]; if(!t.subjects[p.subj]) p.subj=t.order[0]; if(typeof p.lensStage!=="number") p.lensStage=2; }
   var shared={ projects:[], activeId:null, student:{name:""} };
   var plData={ activeId:null, byProject:{} };
   var activeId=null;
   var state={ name:"", cls:"", checks:[false,false,false,false,false], ai:"" };
+  var triedSign=false;   /* amber "needs input" only appears after a sign attempt (matches Question Quest) */
 
   function rawQQ(){ try{ var r=localStorage.getItem(QQ_KEY); if(r){ var d=JSON.parse(r); if(d&&typeof d==="object") return d; } }catch(e){} return null; }
   function loadShared(){ var d=rawQQ(); if(d){ shared.projects=Array.isArray(d.projects)?d.projects:[]; shared.activeId=d.activeId||null; shared.student=(d.student&&typeof d.student==="object")?{name:d.student.name||""}:{name:""}; } }
@@ -289,6 +365,7 @@
 
   function loadIntoState(){
     var p=activeProj(); if(!p){ p=mkProj("Untitled project"); shared.projects.unshift(p); activeId=p.id; }
+    normLens(p);
     var b=bucket(p.id);
     state.name=shared.student.name||"";
     state.cls=p.cls||"";
@@ -298,7 +375,8 @@
   }
   function save(){
     var p=activeProj(); if(!p) return;
-    shared.student.name=state.name; p.cls=state.cls; persistShared();
+    if((state.name||"").trim()) shared.student.name=state.name;   /* never wipe a name another tool saved */
+    p.cls=state.cls; persistShared();
     var b=bucket(p.id); b.checks=state.checks.slice(0,RULES.length); b.ai=state.ai; persistPL();
   }
   function bootProjects(){
@@ -344,7 +422,7 @@
   function renderArchived(){
     var wrap=$("archivedList"), toggle=$("toggleArchived"); if(!wrap||!toggle) return;
     var arch=shared.projects.filter(function(p){return p.archived;}).sort(function(a,b){ return (b.created||0)-(a.created||0); });
-    toggle.style.display=arch.length?"inline-flex":"none"; if(!arch.length){ wrap.hidden=true; toggle.setAttribute("aria-expanded","false"); }
+    toggle.style.display=arch.length?"flex":"none"; if(!arch.length){ wrap.hidden=true; toggle.setAttribute("aria-expanded","false"); }
     archToggleLabel(); wrap.innerHTML="";
     arch.forEach(function(p){ var row=document.createElement("div"); row.className="arch-item";
       row.innerHTML='<span class="ai-name">'+esc(p.name)+'</span><span class="ai-meta">'+esc(projMeta(p))+'</span>'+
@@ -354,7 +432,51 @@
     wrap.querySelectorAll(".arch-btn.del").forEach(function(b){ b.addEventListener("click",function(){ deleteArchived(b.getAttribute("data-id")); }); });
   }
 
+  /* ===== "I'm working on" lens rendering (seeds track/subject onto the shared project) ===== */
+  function renderLensTrack(){
+    var tc=$("trackChips"); if(!tc) return; tc.innerHTML=""; var p=activeProj(); if(!p) return;
+    LENS.order.forEach(function(tk){
+      var b=document.createElement("button"); b.type="button"; b.className="chip"; b.setAttribute("data-track",tk);
+      b.setAttribute("aria-pressed", (p.lensStage>=1 && p.track===tk)?"true":"false");
+      b.textContent=LENS.tracks[tk].label;
+      b.addEventListener("click", function(){
+        var pp=activeProj(); if(!pp) return;
+        if(pp.lensStage>=1 && pp.track===tk) return;
+        pp.track=tk; pp.subj=lensFirstSubj(tk); pp.lensStage=1;
+        persistShared(); renderLens(); renderProjTabs(); updatePrintHead();
+      });
+      tc.appendChild(b);
+    });
+  }
+  function renderLensSubj(){
+    var sc=$("lensSubjChips"), wrap=$("lensSubjWrap"); if(!sc||!wrap) return; var p=activeProj();
+    if(!p){ wrap.hidden=true; return; }
+    wrap.hidden=(p.lensStage<1); sc.innerHTML="";
+    var t=lensTrackDef(p.track);
+    t.order.forEach(function(sj){
+      var b=document.createElement("button"); b.type="button"; b.className="chip"; b.setAttribute("data-subj",sj);
+      b.setAttribute("aria-pressed", (p.lensStage>=2 && p.subj===sj)?"true":"false");
+      b.textContent=t.subjects[sj].label;
+      b.addEventListener("click", function(){
+        var pp=activeProj(); if(!pp) return;
+        pp.subj=sj; pp.lensStage=2;
+        persistShared(); renderLens(); renderProjTabs(); updatePrintHead();
+      });
+      sc.appendChild(b);
+    });
+  }
+  function updateLensBadge(){
+    var el=$("lensBadge"); if(!el) return; var p=activeProj();
+    if(!p || p.lensStage<1){ el.innerHTML='<span class="badge-hint">Pick a track to begin.</span>'; return; }
+    if(p.lensStage<2){ el.innerHTML='<span class="badge-hint">Now choose your subject.</span>'; return; }
+    el.textContent=lensBadgeText(p);
+  }
+  function renderLens(){ renderLensTrack(); renderLensSubj(); updateLensBadge(); }
+
   /* ===== rules rendering + form state ===== */
+  function checkState(){ return { name:(state.name||"").trim().length>0, rules:allChecked(), ai:(state.ai||"").trim().length>0 }; }
+  function reveal(el){ if(!el) return; try{ if(el.focus) el.focus(); }catch(e){} try{ if(el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"center"}); }catch(e){} }
+  function focusMissing(){ var c=checkState(); if(!c.name){ reveal($("name")); } else if(!c.rules){ reveal($("rulesHeading")); } else if(!c.ai){ reveal($("aiuse")); } }
   function renderRules(){
     var ul=$("rules"); ul.innerHTML="";
     RULES.forEach(function(r,i){
@@ -370,27 +492,25 @@
   }
   function allChecked(){ for(var i=0;i<RULES.length;i++){ if(!state.checks[i]) return false; } return true; }
   function updateSign(){
-    var nameOk=(state.name||"").trim().length>0;
-    var rulesOk=allChecked();
-    var aiOk=(state.ai||"").trim().length>0;
-    var ok=nameOk && rulesOk && aiOk;
-    $("copyBtn").disabled=!ok; $("dlBtn").disabled=!ok;
+    var c=checkState(); var ok=c.name && c.rules && c.ai;
     var need=[];
-    if(!rulesOk) need.push("check all five rules");
-    if(!aiOk) need.push("write your AI-use pledge");
-    if(!nameOk) need.push("add your name");
+    if(!c.rules) need.push("check all five rules");
+    if(!c.ai) need.push("write your AI-use pledge");
+    if(!c.name) need.push("add your name");
     var w=$("warn");
     if(need.length){
       var s=(need.length===1)?need[0]:(need.slice(0,-1).join(", ")+" and "+need[need.length-1]);
       w.textContent=s.charAt(0).toUpperCase()+s.slice(1)+" to sign your pledge.";
     } else w.textContent="";
-    $("name").classList.toggle("needed", !nameOk);
-    var ta=$("aiuse"); if(ta) ta.classList.toggle("needed", !aiOk);
+    /* amber highlight is a post-attempt cue only; the red * marks required fields at rest */
+    $("name").classList.toggle("needed", triedSign && !c.name);
+    var ta=$("aiuse"); if(ta) ta.classList.toggle("needed", triedSign && !c.ai);
+    return ok;
   }
   function rerenderAll(){
     $("name").value=state.name; $("course").value=state.cls;
     $("aiuse").value=state.ai;
-    renderRules(); renderProjTabs(); updateSign(); updatePrintHead();
+    renderRules(); renderProjTabs(); renderLens(); updateSign(); updatePrintHead();
     $("status").textContent="";
   }
 
@@ -399,52 +519,59 @@
   function isoDate(){ var d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
   function pledgeText(){
     var p=activeProj();
-    var lines=[];
-    lines.push("INVESTIGATOR'S PLEDGE");
-    lines.push("Open the Case");
-    lines.push("");
-    lines.push("Investigator: "+((state.name||"").trim()||"__________"));
-    if(p&&p.name) lines.push("Project: "+p.name);
-    if((state.cls||"").trim()) lines.push("Class / period: "+state.cls.trim());
-    lines.push("Date signed: "+new Date().toLocaleDateString());
-    lines.push("");
-    lines.push("I commit to the Rules of Evidence:");
-    RULES.forEach(function(r,i){ lines.push((state.checks[i]?"[x] ":"[ ] ")+r.t+" "+r.d); });
-    lines.push("");
-    lines.push("My AI-use Pledge: "+((state.ai||"").trim()||"(none written)"));
-    lines.push("");
-    lines.push("Signed: "+((state.name||"").trim()||"__________"));
-    lines.push("");
-    lines.push("\u201CThe Architect of Inquiry\u201D Research Tools \u00A9 2026 Amy Edwards, MLIS, School Library Media Specialist, Charles Raffetto Media Center, Manasquan High School. Licensed under CC BY-SA 4.0 \u00B7 Designed, reviewed, and verified by Amy Edwards; built with AI assistance (Claude, Anthropic, 2026).");
-    return lines.join("\n");
+    function rule(ch,n){ var s=""; for(var i=0;i<n;i++) s+=ch; return s; }
+    var title="INVESTIGATOR'S PLEDGE \u2014 OPEN THE CASE";
+    var nm=(state.name||"").trim()||"__________"; var _cls=(state.cls||"").trim();
+    var L=[];
+    L.push(title); L.push(rule("=", title.length)); L.push("");
+    L.push("Student:    "+nm+(_cls?" ("+_cls+")":""));
+    L.push("Project:    "+(p&&p.name?p.name:""));
+    if(p&&p.lensStage>=2) L.push("Working on: "+lensBadgeText(p));
+    L.push("Signed:     "+new Date().toLocaleString()+"  (times are device-local)");
+    L.push("");
+    L.push("RULES OF EVIDENCE  (committed to)"); L.push(rule("-",33));
+    RULES.forEach(function(r,i){ L.push((state.checks[i]?"[x] ":"[ ] ")+r.t+" "+r.d); });
+    L.push("");
+    L.push("AI-USE PLEDGE"); L.push(rule("-",13));
+    L.push((state.ai||"").trim()||"(none written)");
+    L.push("");
+    L.push("My words are mine. My sources are real and named. I use AI only when allowed, and I always say so.");
+    L.push("\u2014 "+nm);
+    L.push("");
+    L.push("\u00A9 2026 Amy Edwards, MLIS | Charles Raffetto Media Center");
+    return L.join("\n");
   }
   function buildHtmlPledge(){
-    var p=activeProj(); var nm=esc((state.name||"").trim()||"__________");
-    var rows=RULES.map(function(r,i){ return '<li style="margin:0 0 5px;">'+(state.checks[i]?"\u2713 ":"\u2610 ")+'<b>'+esc(r.t)+'</b> '+esc(r.d)+'</li>'; }).join("");
-    return '<div style="font-family:\'Segoe UI\',system-ui,sans-serif;color:#111A2B;font-size:14px;line-height:1.5;">'+
-      '<p style="margin:0 0 2px;font-size:17px;font-weight:700;color:#0B7C8C;">Investigator\u2019s Pledge</p>'+
-      '<p style="margin:0 0 12px;font-size:12px;color:#555;">Open the Case</p>'+
-      '<p style="margin:0 0 2px;"><b>Investigator:</b> '+nm+'</p>'+
-      (p&&p.name?'<p style="margin:0 0 2px;"><b>Project:</b> '+esc(p.name)+'</p>':"")+
-      ((state.cls||"").trim()?'<p style="margin:0 0 2px;"><b>Class / period:</b> '+esc(state.cls.trim())+'</p>':"")+
-      '<p style="margin:0 0 12px;"><b>Date signed:</b> '+esc(new Date().toLocaleDateString())+'</p>'+
-      '<p style="margin:0 0 4px;font-weight:700;">I commit to the Rules of Evidence:</p>'+
+    var p=activeProj(), e=esc; var nm=e((state.name||"").trim()||"__________"); var _cls=(state.cls||"").trim();
+    var rows=RULES.map(function(r,i){ return '<li style="margin:0 0 5px;">'+(state.checks[i]?"\u2713 ":"\u2610 ")+'<b>'+e(r.t)+'</b> '+e(r.d)+'</li>'; }).join("");
+    return '<div style="font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#111;line-height:1.4;">'+
+      '<h2 style="margin:0 0 8px;">Investigator\u2019s Pledge \u2014 Open the Case</h2>'+
+      '<p style="margin:0 0 12px;">'+
+        '<b>Student:</b> '+nm+(_cls?" ("+e(_cls)+")":"")+'<br>'+
+        '<b>Project:</b> '+e(p&&p.name?p.name:"")+'<br>'+
+        (p&&p.lensStage>=2?'<b>Working on:</b> '+e(lensBadgeText(p))+'<br>':"")+
+        '<b>Signed:</b> '+e(new Date().toLocaleString())+' (times are device-local)'+
+      '</p>'+
+      '<h3 style="margin:14px 0 4px;">Rules of Evidence <span style="font-weight:normal;color:#888;font-size:10pt;">(committed to)</span></h3>'+
       '<ul style="margin:0 0 12px;padding-left:18px;list-style:none;">'+rows+'</ul>'+
-      '<p style="margin:0 0 12px;"><b>My AI-use Pledge:</b> '+esc((state.ai||"").trim()||"(none written)")+'</p>'+
-      '<p style="margin:0 0 2px;"><b>Signed:</b> '+nm+'</p>'+
-      '<p style="margin:14px 0 0;font-size:10px;color:#777;">\u201CThe Architect of Inquiry\u201D Research Tools \u00A9 2026 Amy Edwards, MLIS, School Library Media Specialist, Charles Raffetto Media Center, Manasquan High School. Licensed under CC BY-SA 4.0 \u00B7 Designed, reviewed, and verified by Amy Edwards; built with AI assistance (Claude, Anthropic, 2026).</p></div>';
+      '<h3 style="margin:16px 0 4px;">AI-use pledge</h3>'+
+      '<p style="margin:0 0 10px;">'+e((state.ai||"").trim()||"(none written)")+'</p>'+
+      '<p style="margin:0 0 2px;color:#555;"><i>My words are mine. My sources are real and named. I use AI only when allowed, and I always say so.</i></p>'+
+      '<p style="margin:0 0 12px;"><b>\u2014 '+nm+'</b></p>'+
+      '<p style="margin:14px 0 0;font-size:9pt;color:#888;">\u00A9 2026 Amy Edwards, MLIS | Charles Raffetto Media Center</p>'+
+    '</div>';
   }
   function taFallback(plain, done){ var ta=document.createElement("textarea"); ta.value=plain; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){ $("status").textContent="Couldn\u2019t copy automatically \u2014 use Download .txt instead."; } document.body.removeChild(ta); }
   function plainCopy(plain, done){ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(plain).then(done, function(){ taFallback(plain, done); }); } else taFallback(plain, done); }
   function doCopy(){
-    if($("copyBtn").disabled) return;
+    var c=checkState(); if(!(c.name && c.rules && c.ai)){ triedSign=true; updateSign(); focusMissing(); return; }
     var plain=pledgeText(), html=buildHtmlPledge();
-    function done(){ $("status").textContent="Pledge copied \u2014 paste into Canvas (keeps formatting); the .txt button is your backup."; }
+    function done(){ $("status").textContent="Pledge copied \u2014 paste it where your teacher directs (formatting is kept); the .txt button is your backup."; }
     try{ if(navigator.clipboard && window.ClipboardItem){ var item=new ClipboardItem({ "text/html":new Blob([html],{type:"text/html"}), "text/plain":new Blob([plain],{type:"text/plain"}) }); navigator.clipboard.write([item]).then(done, function(){ plainCopy(plain, done); }); return; } }catch(e){}
     plainCopy(plain, done);
   }
   function doDownload(){
-    if($("dlBtn").disabled) return;
+    var c=checkState(); if(!(c.name && c.rules && c.ai)){ triedSign=true; updateSign(); focusMissing(); return; }
     var p=activeProj();
     var last=((state.name||"").trim().split(/\s+/).pop()||"Investigator").replace(/[^A-Za-z0-9]/g,"");
     var fname=last+"_Pledge_"+slug(p?p.name:"")+"_"+isoDate()+".txt";
@@ -452,9 +579,9 @@
     var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=fname;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function(){ URL.revokeObjectURL(a.href); },1000);
-    $("status").textContent="Backup .txt downloaded \u2014 upload it to Canvas as your teacher directs.";
+    $("status").textContent="Backup .txt downloaded \u2014 submit it to your teacher as directed.";
   }
-  function updatePrintHead(){ var ph=document.getElementById("printHead"); if(!ph) return; var p=activeProj(); var nm=(state.name||"").trim(); var proj=p&&p.name?p.name:""; var bits=[]; if(nm)bits.push(nm); if(proj)bits.push(proj); bits.push(new Date().toLocaleDateString()); ph.textContent=bits.join("  \u00B7  "); }
+  function updatePrintHead(){ var ph=document.getElementById("printHead"); if(!ph) return; var p=activeProj(); var nm=(state.name||"").trim(); var proj=p&&p.name?p.name:""; var track=(p&&p.lensStage>=2)?lensBadgeText(p):""; var bits=[]; if(nm)bits.push(nm); if(proj)bits.push(proj); if(track)bits.push(track); bits.push(new Date().toLocaleDateString()); ph.textContent=bits.join("  \u00B7  "); }
   window.addEventListener("beforeprint", updatePrintHead);
 
   // ================= UDL: read-aloud + reading options (ported from Question Quest) =================
