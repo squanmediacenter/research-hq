@@ -532,7 +532,7 @@
 </div>
 
 <footer><div class="rql-fresh" style="margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.08);text-align:center"><button type="button" id="clearAllBtn" style="font:inherit;font-size:12.5px;font-weight:600;color:#8a1c1c;background:#fff;border:1px solid #d9b3b3;border-radius:8px;padding:7px 14px;cursor:pointer">Clear my work / Start fresh</button><span style="display:block;font-size:11px;color:#777;margin-top:5px">Erases your saved work on this device — handy on a shared computer.</span></div>
-  Manasquan High School Media Center &middot; Contact Mrs. Edwards for research help
+  <a href="https://mhs.manasquanschools.org/services/media-center" target="_blank" rel="noopener">Manasquan High School Media Center</a> &middot; Contact Mrs. Edwards for research help
   (<a href="mailto:aedwards@manasquan.k12.nj.us">aedwards@manasquan.k12.nj.us</a>)
   <div class="colophon">“The Architect of Inquiry” Research Tools © 2026 Amy Edwards, MLIS, School Library Media Specialist, Charles Raffetto Media Center, Manasquan High School. Licensed under CC BY-SA 4.0 &middot; Designed, reviewed, and verified by Amy Edwards; built with AI assistance (Claude, Anthropic, 2026).</div>
 </footer>
@@ -605,10 +605,10 @@ var CONFIG = {
   ],
   // NOTE for Mrs. Edwards: replace the "url" values with the district's actual authenticated links.
   tools: [
-    {tier:"start", name:"JerseyClicks (EBSCO databases)", best:["scholarly","news","background","data"], meta:"Scholarly \u00B7 news \u00B7 reference \u2014 all subjects", blurb:"Free NJ statewide databases through the State Library \u2014 thousands of full-text articles.", note:"Save candidate articles here with EBSCO Projects as you gather.", url:"https://www.njstatelib.org/research_library/jerseyclicks/"},
-    {tier:"start", name:"Gale in Context: High School", best:["background","news","scholarly"], meta:"Reference \u00B7 news \u00B7 some scholarly \u2014 all subjects", blurb:"Curated, readable overviews and viewpoints \u2014 great for background and accessible reading.", note:"Best for reading; it can't hold your own gathering folders \u2014 use EBSCO Projects, or send citations straight to NoodleTools.", url:""},
-    {tier:"start", name:"MackinVIA", best:["books","background"], meta:"Ebooks \u00B7 audiobooks", blurb:"Your ebook and audiobook collection \u2014 book-length sources and chapters.", note:"", url:""},
-    {tier:"start", name:"Destiny catalog (Follett)", best:["books","background","primary"], meta:"Books \u00B7 print in the building", blurb:"The Media Center's own catalog \u2014 what's on our shelves right now.", note:"", url:""},
+    {tier:"start", name:"Explora (EBSCO) databases", best:["scholarly","news","background","data"], meta:"Scholarly \u00B7 news \u00B7 reference \u2014 all subjects", blurb:"Paid for by Manasquan HS and free through the State Library \u2014 thousands of full-text articles & digital reference books.", note:"Save candidate articles here with EBSCO Projects as you gather.", url:"https://research.ebsco.com/c/jsrupb"},
+    {tier:"start", name:"Gale in Context: High School", best:["background","news","scholarly"], meta:"Reference \u00B7 news \u00B7 some scholarly \u2014 all subjects", blurb:"Curated, readable overviews and viewpoints \u2014 great for background and accessible reading.", note:"Best for reading; it can't hold your own gathering folders \u2014 use EBSCO Projects, or send citations straight to NoodleTools.", url:"https://link.gale.com/apps/SUIC?u=manasquan"},
+    {tier:"start", name:"MackinVIA", best:["books","background"], meta:"Ebooks \u00B7 audiobooks", blurb:"Your ebook and audiobook collection \u2014 book-length sources and chapters.", note:"", url:"https://via3.mackinvia.com/"},
+    {tier:"start", name:"Destiny catalog (Follett)", best:["books","background","primary"], meta:"Books \u00B7 print in the building", blurb:"The Media Center's own catalog \u2014 what's on our shelves right now.", note:"", url:"https://portal.follettdestiny.com/portal?appId=destiny-G4J6-XJ75&siteGuid=69FD5B70-2F33-436D-91C8-0207D3610420&app=Destiny%20Discover"},
     {tier:"oa", name:"Google Scholar", best:["scholarly","scimed"], meta:"Scholarly articles \u2014 all subjects", blurb:"Searches scholarly literature across the web; look for the [PDF] link on the right for free full text.", note:"Turn on Library Links in settings to surface our free full text.", url:"https://scholar.google.com"},
     {tier:"oa", name:"PubMed Central", best:["scholarly","scimed"], meta:"Full-text biomedical & life sciences", blurb:"Free, full-text medical and life-sciences research.", note:"", url:"https://www.ncbi.nlm.nih.gov/pmc/"},
     {tier:"oa", name:"DOAJ", best:["scholarly"], meta:"Open-access peer-reviewed journals", blurb:"Directory of Open Access Journals \u2014 vetted, free, peer-reviewed articles.", note:"", url:"https://doaj.org"},
@@ -616,7 +616,7 @@ var CONFIG = {
     {tier:"ask", name:"Mrs. Edwards / Media Center", best:["scholarly","primary","scimed","data","books"], meta:"Anything you can't reach; never PAY!", blurb:"Stuck, or need something specialized? Ask \u2014 there's almost always a free path. If the Media Center can't find it, they can request an interlibrary loan (ILL). CAUTION \u2014 this can take up to a month, so plan ahead!", note:"", url:"#call-for-backup", linkLabel:"Call for Backup", internal:true}
   ],
   ladder: [
-    {t:"<b>Check what we already have.</b> Search JerseyClicks (EBSCO) and Gale \u2014 the same article is often there for free."},
+    {t:"<b>Check what we already have.</b> Search Explora (EBSCO) and Gale \u2014 the same article is often there for free."},
     {t:"<b>Find a free version.</b> Copy the title into Google Scholar and look for a [PDF] on the right, or search CORE and the DOAJ."},
     {t:"<b>Ask the Media Center.</b> Mrs. Edwards will work to track it down, or request it via interlibrary loan (ILL) from other libraries at no cost to you."}
   ],
@@ -628,7 +628,7 @@ var CONFIG = {
     {id:"scholar",   label:"Google Scholar", url:"https://scholar.google.com"},
     {id:"core",      label:"CORE", url:"https://core.ac.uk/search"},
     {id:"doaj",      label:"DOAJ", url:"https://doaj.org"},
-    {id:"databases", label:"Our databases (JerseyClicks / Gale)", url:"https://www.njstatelib.org/research_library/jerseyclicks/"}
+    {id:"databases", label:"Our databases (Explora / Gale)", url:"https://research.ebsco.com/c/jsrupb"}
   ],
   // ---- Microsoft Form intake (Mrs. Edwards sets this up once) ----
   // 1) Build a Microsoft Form with these questions (short-text unless noted):
@@ -640,7 +640,7 @@ var CONFIG = {
   //    ZLINK, ZWHERE, ZTRIED, ZWHY, ZDATE), copy the generated link into "prefill"
   //    below, then swap each placeholder for the matching token in braces.
   form: {
-    url: "",       // e.g. "https://forms.office.com/r/xxxxxxxx"
+    url: "https://forms.cloud.microsoft/r/D8VAAizJR5",       // e.g. "https://forms.office.com/r/xxxxxxxx"
     prefill: ""    // e.g. "https://forms.office.com/Pages/ResponsePage.aspx?id=...&r123={{reqid}}&r456={{title}}&..."
   },
   whereMap: [
@@ -650,7 +650,7 @@ var CONFIG = {
     {m:"core.ac.uk",       w:"CORE"},
     {m:"jstor.org",        w:"JSTOR"},
     {m:"gale.com",         w:"Gale"},
-    {m:"ebsco",            w:"EBSCO / JerseyClicks"},
+    {m:"ebsco",            w:"Explora (EBSCO)"},
     {m:"sciencedirect",    w:"ScienceDirect"},
     {m:"springer",         w:"Springer"},
     {m:"onlinelibrary.wiley", w:"Wiley"},
