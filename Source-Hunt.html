@@ -77,6 +77,15 @@
   .tool .tn{font-weight:600;font-size:14.5px;margin:0 0 4px;color:var(--ink)}
   .tool .tb{font-size:12.5px;color:var(--ink-soft);margin:0 0 8px;line-height:1.45}
   .tool .tmeta{font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;color:var(--ink-soft);text-transform:uppercase}
+  .tool .tpayer{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin:6px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.02em;color:var(--signal);line-height:1.4}
+  .tool .tpayer .pl{flex:0 0 auto;background:#E7F3F5;color:var(--signal);border-radius:5px;padding:2px 6px;font-size:9px;letter-spacing:.06em;text-transform:uppercase}
+  .tool .tpayer.plain{color:var(--ink-soft)}
+  .tool .tsteps{margin-top:10px}
+  .tool .tsteps .tsh{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--signal);margin:0 0 7px}
+  .tool .tsteps ol{margin:0;padding:0;list-style:none;counter-reset:st}
+  .tool .tsteps li{counter-increment:st;position:relative;padding-left:23px;font-size:12px;color:var(--ink);line-height:1.4;margin:0 0 6px}
+  .tool .tsteps li:last-child{margin-bottom:0}
+  .tool .tsteps li::before{content:counter(st);position:absolute;left:0;top:1px;width:16px;height:16px;border-radius:50%;background:var(--signal);color:#fff;font-family:var(--mono);font-size:9.5px;display:flex;align-items:center;justify-content:center}
   .topen{display:inline-block;margin-top:10px;font-family:var(--body);font-size:12.5px;font-weight:600;color:#fff;background:var(--signal);border-radius:8px;padding:7px 13px;text-decoration:none}
   .topen:hover{background:#0a6b78}
   .tool .note{margin-top:9px;font-size:11.5px;color:var(--ink-soft);line-height:1.45;background:var(--wash);border-left:3px solid var(--signal);border-radius:0 7px 7px 0;padding:7px 10px}
@@ -120,6 +129,18 @@
   .sent-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ok);background:#E6F5EF;border-radius:6px;padding:3px 9px}
   .undo{background:none;border:none;color:var(--ink-soft);font-size:12px;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
   .undo:hover{color:var(--stop)}
+  .handoff{margin-top:11px;background:var(--wash);border:1px solid var(--line);border-radius:11px;padding:13px 14px}
+  .handoff .ho-h{font-family:var(--display);font-weight:600;font-size:14px;color:var(--ink);margin:0 0 10px}
+  .handoff .ho-prev{background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-bottom:12px}
+  .handoff .ho-prev p{margin:0 0 7px;font-size:12.5px;line-height:1.4;color:var(--ink);word-break:break-word}
+  .handoff .ho-prev p:last-child{margin-bottom:0}
+  .handoff .ho-prev span{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:1px}
+  .handoff .ho-step{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:11px}
+  .handoff .ho-num{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:var(--signal);color:#fff;font-family:var(--mono);font-size:11px;display:flex;align-items:center;justify-content:center}
+  .handoff .ho-hint{flex-basis:100%;padding-left:29px;font-size:12px;color:var(--ink-soft);line-height:1.45;margin:4px 0 0}
+  .handoff .ho-note{font-size:12.5px;color:var(--ok)}
+  .handoff .run.tiny.copied{background:#E6F5EF;color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+  .handoff .ho-done{margin-top:4px;padding-top:11px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
   .reqid{font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);letter-spacing:.02em}
   .rtried{margin:7px 0 0;display:flex;gap:6px;flex-wrap:wrap}
   .rtag{font-family:var(--mono);font-size:10px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft);background:#EDF1F6;border-radius:5px;padding:2px 7px}
@@ -423,7 +444,7 @@
     </div>
     <div class="qbtns">
       <button type="button" class="run" id="shSync">Sync from Question Quest</button>
-      <a class="ghost" id="shOpenQQ" href="Question-Quest.html" target="_blank" rel="noopener">Open Question Quest &#8599;</a>
+      <a class="ghost" id="shOpenQQ" href="Question-Quest.html">Open Question Quest &#8599;</a>
       <span class="sync-msg" id="syncMsg" role="status" aria-live="polite"></span>
     </div>
   </div>
@@ -458,7 +479,6 @@
     </div>
     <div class="chips need-chips" id="needChips"></div>
     <div id="tiers"></div>
-    <p class="publib" id="publib"></p>
     <p class="paywall-note"><b>Hit a paywall?</b> Work down the tiers above &mdash; most sources turn up free. Still can't reach it? Add it to <span class="ui-ref">Call for Backup</span> below. <b>Rule of the hunt:</b> never pay out of pocket.</p>
   </div>
 
@@ -599,55 +619,50 @@ var CONFIG = {
     {id:"scimed",    label:"Science & medical"}
   ],
   tiers: [
-    {id:"start", label:"Start here \u2014 School & State paid databases"},
+    {id:"start", label:"Paid databases"},
     {id:"oa",    label:"Free \u2014 open access on the web"},
-    {id:"ask",   label:"Ask the Media Center (last resort)"}
+    {id:"ask",   label:"Ask a Librarian"}
   ],
   // NOTE for Mrs. Edwards: replace the "url" values with the district's actual authenticated links.
   tools: [
-    {tier:"start", name:"Explora (EBSCO) databases", best:["scholarly","news","background","data"], meta:"Scholarly \u00B7 news \u00B7 reference \u2014 all subjects", blurb:"Paid for by Manasquan HS and free through the State Library \u2014 thousands of full-text articles & digital reference books.", note:"Save candidate articles here with EBSCO Projects as you gather.", url:"https://research.ebsco.com/c/jsrupb"},
-    {tier:"start", name:"Gale in Context: High School", best:["background","news","scholarly"], meta:"Reference \u00B7 news \u00B7 some scholarly \u2014 all subjects", blurb:"Curated, readable overviews and viewpoints \u2014 great for background and accessible reading.", note:"Best for reading; it can't hold your own gathering folders \u2014 use EBSCO Projects, or send citations straight to NoodleTools.", url:"https://link.gale.com/apps/SUIC?u=manasquan"},
-    {tier:"start", name:"MackinVIA", best:["books","background"], meta:"Ebooks \u00B7 audiobooks", blurb:"Your ebook and audiobook collection \u2014 book-length sources and chapters.", note:"", url:"https://via3.mackinvia.com/"},
-    {tier:"start", name:"Destiny catalog (Follett)", best:["books","background","primary"], meta:"Books \u00B7 print in the building", blurb:"The Media Center's own catalog \u2014 what's on our shelves right now.", note:"", url:"https://portal.follettdestiny.com/portal?appId=destiny-G4J6-XJ75&siteGuid=69FD5B70-2F33-436D-91C8-0207D3610420&app=Destiny%20Discover"},
-    {tier:"oa", name:"Google Scholar", best:["scholarly","scimed"], meta:"Scholarly articles \u2014 all subjects", blurb:"Searches scholarly literature across the web; look for the [PDF] link on the right for free full text.", note:"Turn on Library Links in settings to surface our free full text.", url:"https://scholar.google.com"},
+    {tier:"start", name:"Explora (EBSCO) databases", best:["scholarly","news","background","data"], meta:"Scholarly \u00B7 news \u00B7 reference \u2014 all subjects", payer:"Manasquan HS + the NJ State Library", blurb:"Thousands of full-text articles and digital reference books.", note:"Save candidate articles here with EBSCO Projects as you gather.", url:"https://research.ebsco.com/c/jsrupb"},
+    {tier:"start", name:"Gale in Context: High School", best:["background","news","scholarly"], meta:"Reference \u00B7 news \u00B7 some scholarly \u2014 all subjects", payer:"Manasquan HS", blurb:"Curated, readable overviews and viewpoints \u2014 great for background and accessible reading.", note:"Best for reading; it can't hold your own gathering folders \u2014 use EBSCO Projects, or send citations straight to NoodleTools.", url:"https://link.gale.com/apps/SUIC?u=manasquan"},
+    {tier:"start", name:"MackinVIA", best:["books","background"], meta:"Ebooks \u00B7 audiobooks", payer:"Manasquan HS", blurb:"Your ebook and audiobook collection \u2014 book-length sources and chapters.", note:"", url:"https://via3.mackinvia.com/"},
+    {tier:"start", name:"Destiny catalog (Follett)", best:["books","background","primary"], meta:"Books \u00B7 print in the building", payer:"The Media Center's own catalog", payerPlain:true, blurb:"What's on our shelves right now.", note:"", url:"https://portal.follettdestiny.com/portal?appId=destiny-G4J6-XJ75&siteGuid=69FD5B70-2F33-436D-91C8-0207D3610420&app=Destiny%20Discover"},
+    {tier:"start", name:"JSTOR", best:["scholarly","primary"], meta:"Scholarly journals \u00B7 primary sources \u2014 strongest in history, literature & the social sciences", payer:"Monmouth County Library system \u2014 free with a Manasquan Public Library card", blurb:"A deep archive of peer-reviewed articles and primary sources, especially rich for the humanities and social sciences.", noteHtml:"Setup differs from our school databases \u2014 the trick is to create a personal JSTOR account, find \u201CMonmouth County Public Library\u201D as the institution (NOT Manasquan), then sign in with your Manasquan barcode. Full steps are on the <a href=\"https://mhs.manasquanschools.org/services/media-center/public-libraries\" target=\"_blank\" rel=\"noopener\">Public Library</a> page.", url:"https://www.jstor.org/"},
+    {tier:"oa", name:"Google Scholar", best:["scholarly","scimed"], meta:"Scholarly articles \u2014 all subjects", blurb:"Searches scholarly literature across the web; look for the [PDF] link on the right for free full text.", note:"", url:"https://scholar.google.com"},
     {tier:"oa", name:"PubMed Central", best:["scholarly","scimed"], meta:"Full-text biomedical & life sciences", blurb:"Free, full-text medical and life-sciences research.", note:"", url:"https://www.ncbi.nlm.nih.gov/pmc/"},
     {tier:"oa", name:"DOAJ", best:["scholarly"], meta:"Open-access peer-reviewed journals", blurb:"Directory of Open Access Journals \u2014 vetted, free, peer-reviewed articles.", note:"", url:"https://doaj.org"},
-    {tier:"oa", name:"CORE", best:["scholarly","scimed"], meta:"Open-access full text \u2014 all subjects", blurb:"Search 200M+ open-access papers and read the free full text in one place \u2014 no download needed.", note:"", url:"https://core.ac.uk/search"},
-    {tier:"ask", name:"Mrs. Edwards / Media Center", best:["scholarly","primary","scimed","data","books"], meta:"Anything you can't reach; never PAY!", blurb:"Stuck, or need something specialized? Ask \u2014 there's almost always a free path. If the Media Center can't find it, they can request an interlibrary loan (ILL). CAUTION \u2014 this can take up to a month, so plan ahead!", note:"", url:"#call-for-backup", linkLabel:"Call for Backup", internal:true}
+    {tier:"ask", name:"Mrs. Edwards / MHS Media Center", best:["scholarly","primary","scimed","data","books"], meta:"Anything you can't reach; never PAY!", blurb:"Stuck, or need something specialized? Ask \u2014 there's almost always a free path. If the Media Center can't find it, they can request an interlibrary loan (ILL). CAUTION \u2014 this can take up to a month, so plan ahead!", note:"", url:"#call-for-backup", linkLabel:"Call for Backup", internal:true},
+    {tier:"ask", name:"Public Libraries", best:["scholarly","primary","scimed","data","books","news","background"], meta:"Free databases + ebooks with a library card", payer:"your public library", blurb:"Your hometown library unlocks databases, ebooks, and borrowing you won't find here \u2014 including JSTOR through the Manasquan Public Library. What's offered differs by town, so ask the Media Center or your local library what your card unlocks.", stepsTitle:"Get your Manasquan library card", steps:["Walk over \u2014 it's one block from school.","Show your school ID and fill out the quick application.","Get your card \u2014 it unlocks JSTOR and all Monmouth County databases."], url:"https://mhs.manasquanschools.org/services/media-center/public-libraries", linkLabel:"How-to & details"}
   ],
   ladder: [
-    {t:"<b>Check what we already have.</b> Search Explora (EBSCO) and Gale \u2014 the same article is often there for free."},
-    {t:"<b>Find a free version.</b> Copy the title into Google Scholar and look for a [PDF] on the right, or search CORE and the DOAJ."},
+    {t:"<b>Check what we already have.</b> Search Explora (EBSCO), Gale, and JSTOR \u2014 the same article is often there for free."},
+    {t:"<b>Find a free version.</b> Copy the title into Google Scholar and look for a [PDF] on the right, or search the DOAJ."},
     {t:"<b>Ask the Media Center.</b> Mrs. Edwards will work to track it down, or request it via interlibrary loan (ILL) from other libraries at no cost to you."}
   ],
   ladderRule: "The rule of the hunt: you should never pay a journal out of your own pocket.",
-  publicLib: "Don't forget your hometown public library. Most NJ libraries give you free databases, ebooks, and borrowing with a library card \u2014 but what's offered differs by town, so ask the Media Center (or your local library) what your card unlocks.",
   mailto:"aedwards@manasquan.k12.nj.us",
   minTried: 2,
   tried: [
     {id:"scholar",   label:"Google Scholar", url:"https://scholar.google.com"},
-    {id:"core",      label:"CORE", url:"https://core.ac.uk/search"},
     {id:"doaj",      label:"DOAJ", url:"https://doaj.org"},
-    {id:"databases", label:"Our databases (Explora / Gale)", url:"https://research.ebsco.com/c/jsrupb"}
+    {id:"databases", label:"Our databases (Explora / Gale)", url:"https://research.ebsco.com/c/jsrupb"},
+    {id:"jstor",     label:"JSTOR", url:"https://www.jstor.org/"}
   ],
   // ---- Microsoft Form intake (Mrs. Edwards sets this up once) ----
-  // 1) Build a Microsoft Form with these questions (short-text unless noted):
-  //    Request ID, Student name, Class, Title, DOI or link, Where found,
-  //    Already tried, Why needed, Date found.
-  // 2) Paste the Form's normal response link into "url" below (fallback path).
-  // 3) OPTIONAL prefill: in the Form's "..." menu choose "Get Pre-filled URL",
-  //    type a unique placeholder in each field (ZID, ZNAME, ZCLASS, ZTITLE, ZDOI,
-  //    ZLINK, ZWHERE, ZTRIED, ZWHY, ZDATE), copy the generated link into "prefill"
-  //    below, then swap each placeholder for the matching token in braces.
+  // Microsoft Form ("Call for Backup" intake). Students COPY their request (built fresh every time,
+  // so it is never stale) and PASTE it into one "Paste your request here" box on the Form at this link.
+  // Native Forms prefill is deliberately NOT used: on a student's 2nd+ request it restores stale answers
+  // from the prior session and ignores the new values, which is worse than an empty box.
+  // Form questions: First Name, Last Name, "What do you need help with?", and "Paste your request here".
   form: {
-    url: "https://forms.cloud.microsoft/r/D8VAAizJR5",       // e.g. "https://forms.office.com/r/xxxxxxxx"
-    prefill: ""    // e.g. "https://forms.office.com/Pages/ResponsePage.aspx?id=...&r123={{reqid}}&r456={{title}}&..."
+    url: "https://forms.cloud.microsoft/r/D8VAAizJR5"
   },
   whereMap: [
     {m:"ncbi.nlm.nih.gov", w:"PubMed / PMC"},
     {m:"scholar.google",   w:"Google Scholar"},
     {m:"doaj.org",         w:"DOAJ"},
-    {m:"core.ac.uk",       w:"CORE"},
     {m:"jstor.org",        w:"JSTOR"},
     {m:"gale.com",         w:"Gale"},
     {m:"ebsco",            w:"Explora (EBSCO)"},
@@ -886,7 +901,13 @@ function renderTiers(){
                '<p class="tn">'+esc(t.name)+'</p>'+
                '<p class="tb">'+esc(t.blurb)+'</p>'+
                '<p class="tmeta">'+esc(t.meta)+'</p>';
-      if(t.note) html+='<p class="note">'+esc(t.note)+'</p>';
+      if(t.payer){ html+='<p class="tpayer'+(t.payerPlain?' plain':'')+'">'+(t.payerPlain?'':'<span class="pl">Paid by</span>')+esc(t.payer)+'</p>'; }
+      if(t.noteHtml){ html+='<p class="note">'+t.noteHtml+'</p>'; }
+      else if(t.note){ html+='<p class="note">'+esc(t.note)+'</p>'; }
+      if(t.steps && t.steps.length){
+        var _steps=t.steps.map(function(s){ return '<li>'+esc(s)+'</li>'; }).join('');
+        html+='<div class="tsteps">'+(t.stepsTitle?'<p class="tsh">'+esc(t.stepsTitle)+'</p>':'')+'<ol>'+_steps+'</ol></div>';
+      }
       if(t.url){
         if(t.internal){ html+='<a class="topen" href="'+esc(t.url)+'" data-scroll="'+esc(t.url)+'">'+esc(t.linkLabel||"Open")+' &rarr;</a>'; }
         else { html+='<a class="topen" href="'+esc(t.url)+'" target="_blank" rel="noopener">'+esc(t.linkLabel||"Open")+' &rarr;</a>'; }
@@ -1006,9 +1027,9 @@ function addRequest(){
   if(!pp || pp.kind==="text"){ fmsg("Start with the DOI or a web link to the source \u2014 even a Google Scholar link to it. That's what helps the Media Center hunt it down."); $("reqPaste").focus(); return; }
   var title=$("reqTitle").value.trim();
   if(!title){ fmsg("Add a title so we know what we're looking for."); $("reqTitle").focus(); return; }
-  if(noneChecked()){ fmsg("Hold on \u2014 try the free-first checks before calling for backup. Give Google Scholar's [PDF] link, CORE, DOAJ, and our databases a real shot first (tap the \u2197 to open one). You'll often find it yourself \u2014 then check what you tried."); return; }
+  if(noneChecked()){ fmsg("Hold on \u2014 try the free-first checks before calling for backup. Give Google Scholar's [PDF] link, DOAJ, JSTOR, and our databases a real shot first (tap the \u2197 to open one). You'll often find it yourself \u2014 then check what you tried."); return; }
   var tried=readTried();
-  if(tried.length < CONFIG.minTried){ fmsg("Try at least "+CONFIG.minTried+" of the free checks first \u2014 you've marked "+tried.length+". Most articles turn up in Google Scholar, CORE, or our own databases."); return; }
+  if(tried.length < CONFIG.minTried){ fmsg("Try at least "+CONFIG.minTried+" of the free checks first \u2014 you've marked "+tried.length+". Most articles turn up in Google Scholar, JSTOR, or our own databases."); return; }
   var why=$("reqWhy").value.trim();
   if(!why){ fmsg("Add one line on why you need it \u2014 it helps us prioritize the hunt."); $("reqWhy").focus(); return; }
   var p=pending||{};
@@ -1032,42 +1053,34 @@ function triedLabel(id){ for(var i=0;i<CONFIG.tried.length;i++){ if(CONFIG.tried
 function findReq(id){ for(var i=0;i<state.requests.length;i++){ if(state.requests[i].id===id) return state.requests[i]; } return null; }
 function shortDate(){ var d=new Date(); return (d.getMonth()+1)+"/"+d.getDate(); }
 
-/* ---- send-once workflow (Microsoft Form) ---- */
-var confirmSet = {};
+/* ---- send workflow: copy your request, then paste it into the Microsoft Form ---- */
+var confirmSet = {};   // request id -> hand-off panel is open
+var copiedSet  = {};   // request id -> "Copy my request" has been tapped (green feedback)
 function reqPayload(r){
-  return "Source Hunt request\n"+
-    "Request ID: "+r.reqid+"\n"+
-    "Student: "+(state.name||"(no name)")+(state.cls?(" ("+state.cls+")"):"")+"\n"+
-    "Title: "+r.title+"\n"+
-    "DOI/Link: "+(r.doi||r.link||"(none)")+"\n"+
-    "Where found: "+(r.where||"the web")+"\n"+
+  // The exact text a student pastes into the Form's "Paste your request here" box.
+  // Freshly built on every send, so it is never stale. Name is a separate Form field (left out here).
+  return "Request ID: "+(r.reqid||"")+"\n"+
+    "Research question: "+(((state.question||"").trim())||"(not set)")+"\n"+
+    "Source title: "+(r.title||"(none)")+"\n"+
+    "DOI or link: "+(r.doi||r.link||"(none)")+"\n"+
     "Already tried: "+((r.tried&&r.tried.length)?r.tried.map(triedLabel).join(", "):"(none)")+"\n"+
-    "Why needed: "+(r.why||"")+"\n"+
-    "Date found: "+r.ts;
-}
-function buildFormUrl(r){
-  var f=CONFIG.form||{};
-  if(f.prefill && f.prefill.indexOf("{{")>-1){
-    var map={ reqid:r.reqid, name:state.name, "class":state.cls, title:r.title,
-      doi:r.doi, link:r.link||r.doi, where:r.where, tried:(r.tried||[]).map(triedLabel).join(", "), why:r.why, date:r.ts };
-    return f.prefill.replace(/\{\{(\w+)\}\}/g, function(m,k){ return encodeURIComponent(map[k]!=null?map[k]:""); });
-  }
-  return f.url||"";
+    "Why I need it: "+(r.why||"");
 }
 function copyText(t){ try{ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t); } }catch(e){} }
-function sendRequest(id){
-  if(!nameOK()){ $("nm").classList.add("needed"); fmsg("Add your name at the top first \u2014 so Mrs. Edwards knows whose request this is."); $("nm").focus(); return; }
+function openHandoff(id){ confirmSet[id]=true; renderRequests(); }
+function copyReq(id){ var r=findReq(id); if(!r) return; copyText(reqPayload(r)); copiedSet[id]=true; renderRequests(); }
+function openForm(id){
   var r=findReq(id); if(!r) return;
-  copyText(reqPayload(r));
-  var url=buildFormUrl(r);
-  if(url){ try{ window.open(url, "_blank", "noopener"); }catch(e){} }
-  else { fmsg("No request form is set up yet \u2014 details copied so you can paste them wherever Mrs. Edwards asks.", true); }
-  confirmSet[id]=true; renderRequests();
+  copyText(reqPayload(r));           // re-copy on the way out, so the clipboard is guaranteed fresh
+  copiedSet[id]=true;
+  var u=(CONFIG.form&&CONFIG.form.url)||"";
+  if(u){ try{ window.open(u, "_blank", "noopener"); }catch(e){} }
+  else { fmsg("No request form is set up yet \u2014 your request is copied, so paste it wherever Mrs. Edwards asks.", true); }
+  renderRequests();
 }
-function confirmSent(id){ var r=findReq(id); if(r){ r.sent=true; r.sentAt=shortDate(); } delete confirmSet[id]; save(); renderRequests(); }
-function cancelSend(id){ delete confirmSet[id]; renderRequests(); }
+function confirmSent(id){ var r=findReq(id); if(r){ r.sent=true; r.sentAt=shortDate(); } delete confirmSet[id]; delete copiedSet[id]; save(); renderRequests(); }
+function cancelSend(id){ delete confirmSet[id]; delete copiedSet[id]; renderRequests(); }
 function undoSent(id){ var r=findReq(id); if(r){ r.sent=false; r.sentAt=""; } save(); renderRequests(); }
-function copyDetails(id){ var r=findReq(id); if(r){ copyText(reqPayload(r)); fmsg("Details copied \u2014 paste any blanks into the form.", true); } }
 
 function summaryText(){
   var n=state.requests.length;
@@ -1088,9 +1101,32 @@ function renderRequests(){
     if(r.sent){
       sendRow='<div class="sent-row"><span class="sent-badge">\u2713 Sent '+esc(r.sentAt)+'</span> <button class="undo" data-act="undo" data-id="'+r.id+'">undo</button></div>';
     } else if(confirmSet[r.id]){
-      sendRow='<div class="sent-row">Form opened \u2014 press <b>Submit</b> there, then: <button class="run tiny" data-act="confirm" data-id="'+r.id+'">\u2713 I sent it</button> <button class="ghost tiny" data-act="cancel" data-id="'+r.id+'">not yet</button></div>';
+      var q=((state.question||"").trim())||"(not set)";
+      var copied=!!copiedSet[r.id];
+      var prev='<div class="ho-prev">'+
+        '<p><span>Request ID</span>'+esc(r.reqid||"")+'</p>'+
+        '<p><span>Research question</span>'+esc(q)+'</p>'+
+        '<p><span>Source title</span>'+esc(r.title||"(none)")+'</p>'+
+        '<p><span>DOI or link</span>'+esc(r.doi||r.link||"(none)")+'</p>'+
+        '<p><span>Already tried</span>'+esc((r.tried&&r.tried.length)?r.tried.map(triedLabel).join(", "):"(none)")+'</p>'+
+        '<p><span>Why I need it</span>'+esc(r.why||"")+'</p>'+
+      '</div>';
+      sendRow='<div class="handoff">'+
+        '<p class="ho-h">Send this to Mrs. Edwards \u2014 2 quick steps</p>'+
+        prev+
+        '<div class="ho-step"><span class="ho-num">1</span>'+
+          (copied
+            ? '<button class="run tiny copied" data-act="copyreq" data-id="'+r.id+'">\u2713 Copied!</button> <span class="ho-note">Now tap step 2 and paste it in.</span>'
+            : '<button class="run tiny" data-act="copyreq" data-id="'+r.id+'">\uD83D\uDCCB Copy my request</button>')+
+        '</div>'+
+        '<div class="ho-step"><span class="ho-num">2</span>'+
+          '<button class="run tiny" data-act="openform" data-id="'+r.id+'">Open the request form \u2197</button>'+
+          '<p class="ho-hint">In the form, tap <b>\u201CPaste your request here\u201D</b> and paste (<b>Ctrl+V</b>, or long-press \u2192 Paste on a tablet). Add your name and what you need, then press <b>Submit</b>.</p>'+
+        '</div>'+
+        '<div class="ho-done"><button class="run tiny" data-act="confirm" data-id="'+r.id+'">\u2713 I submitted it</button> <button class="ghost tiny" data-act="cancel" data-id="'+r.id+'">back</button></div>'+
+      '</div>';
     } else {
-      sendRow='<div class="sent-row"><button class="run tiny" data-act="send" data-id="'+r.id+'">Send to Mrs. Edwards \u2192</button> <button class="ghost tiny" data-act="copy" data-id="'+r.id+'">copy details</button></div>';
+      sendRow='<div class="sent-row"><button class="run tiny" data-act="open" data-id="'+r.id+'">Send to Mrs. Edwards \u2192</button></div>';
     }
     el.innerHTML=
       '<button class="c-del" title="Remove" data-id="'+r.id+'">&times;</button>'+
@@ -1103,14 +1139,15 @@ function renderRequests(){
     host.appendChild(el);
   });
   host.querySelectorAll(".c-del").forEach(function(b){ b.addEventListener("click", function(){ removeRequest(b.getAttribute("data-id")); }); });
-  host.querySelectorAll(".sent-row [data-act]").forEach(function(b){
+  host.querySelectorAll("[data-act]").forEach(function(b){
     b.addEventListener("click", function(){
       var id=b.getAttribute("data-id"), act=b.getAttribute("data-act");
-      if(act==="send") sendRequest(id);
+      if(act==="open") openHandoff(id);
+      else if(act==="copyreq") copyReq(id);
+      else if(act==="openform") openForm(id);
       else if(act==="confirm") confirmSent(id);
       else if(act==="cancel") cancelSend(id);
       else if(act==="undo") undoSent(id);
-      else if(act==="copy") copyDetails(id);
     });
   });
 }
@@ -1372,15 +1409,25 @@ window.addEventListener("beforeprint", function(){
 window.addEventListener("afterprint", function(){ if(_pTitle!=null) document.title=_pTitle; });
 
 /* ---------- init ---------- */
+function syncArrivalFromQQ(){
+  // Fired when a student arrives via Question Quest's "Send to Source Hunt" button (URL ends with #fromqq).
+  if(!/fromqq/i.test(location.hash||"")) return false;
+  try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){ try{ location.hash=""; }catch(_e){} }
+  loadShared();  // pick up the project Question Quest just marked active
+  if(shared.activeId && findProj(shared.activeId) && shared.activeId!==activeId){
+    save(); activeId=shared.activeId; loadIntoState(); persistSH();
+  }
+  return true;
+}
 function init(){
   bootProjects();
+  var cameFromQQ=syncArrivalFromQQ();
   $("nm").value=state.name; $("cl").value=state.cls;
   $("nm").addEventListener("input", function(){ state.name=$("nm").value; if(nameOK())$("nameWarn").style.display="none"; $("nm").classList.remove("needed"); save(); updatePrepared(); });
   $("cl").addEventListener("input", function(){ state.cls=$("cl").value; save(); });
 
   renderLens();
   renderNeeds(); renderTiers();
-  $("publib").textContent = CONFIG.publicLib || "";
   renderTried();
   $("minTriedN").textContent=CONFIG.minTried;
   renderRequests();
@@ -1388,6 +1435,7 @@ function init(){
   renderTerms();
   renderProjTabs(); renderQuestion();
   updatePrepared();
+  if(cameFromQQ){ syncFromQQ(); try{ window.scrollTo(0,0); }catch(e){} }
 
   $("reqPaste").addEventListener("blur", resolvePaste);
   $("reqPaste").addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); resolvePaste(); } });
