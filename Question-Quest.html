@@ -563,6 +563,7 @@
     <div class="runbar">
       <button class="run" id="run" disabled>Run analysis</button>
       <button class="run ghost" id="sample">Try a sample</button>
+      <button class="run ghost" id="sendSH" disabled>Send to Source Hunt &#8599;</button>
       <span class="wc" id="wc">0 words</span>
     </div>
   </div>
@@ -1273,6 +1274,7 @@
     var t=rq.value.trim(); var live=$("live"); live.innerHTML="";
     $("wc").textContent=words(t)+(words(t)===1?" word":" words");
     $("run").disabled=words(t)<3;
+    var _sb=$("sendSH"); if(_sb) _sb.disabled=words(t)<3;
     if(!t) return;
     var lower=t.toLowerCase();
     function add(cls,txt){ var s=document.createElement("span"); s.className="flag "+cls; s.innerHTML='<span class="dot"></span>'+txt; live.appendChild(s); }
@@ -1511,6 +1513,13 @@
   }
   function onSample(){ var pool=samplePool(); rq.value=pool[sampleIdx%pool.length]; sampleIdx++; liveFlags(); rq.focus(); rq.scrollIntoView({behavior:"smooth",block:"center"}); }
 
+  function onSendToSH(){
+    if(words(rq.value.trim())<3) return;
+    onRun();       // commit the current question as this project's version (+ diagnose), which saveStates
+    saveState();   // belt-and-suspenders: ensure activeId + question are persisted for Source Hunt
+    window.location.assign("Source-Hunt.html#fromqq");  // same-tab forward navigation
+  }
+
   var MARKER_LABEL = { "01":"analytical phrasing","02":"focused scope","03":"specific concepts","04":"arguable","05":"feasible","06":"single focus" };
   function groupMarkers(st){
     var g={strong:[],caution:[],weak:[]};
@@ -1684,6 +1693,7 @@
   rq.addEventListener("input", liveFlags);
   $("run").addEventListener("click", onRun);
   $("sample").addEventListener("click", onSample);
+  $("sendSH").addEventListener("click", onSendToSH);
   $("orA").addEventListener("input", updateOr);
   $("orB").addEventListener("input", updateOr);
   $("orFocus").addEventListener("input", updateOr);
